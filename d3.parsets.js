@@ -191,6 +191,7 @@ var clickedNode = null;
               .on("mousedown.parsets", function(d){
                 if(ribbonClicked == false){
                   ribbonClicked = true;
+                  clickedNode = [];
                   clickedNode = d.node;
                   highlight(d = d.node, true);
                 }else{
