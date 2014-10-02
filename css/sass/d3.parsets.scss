@@ -1,0 +1,146 @@
+$category0: #b2aa9b; /* grey */
+$category1: #78b3b2; /* light blue */
+$category2: #40709c; /* blue */
+$category3: #ea9290; /* pink */
+$category4: #784184; /* purple */
+$category5: #841a19; /* burgundy */
+$category6: #a0c83c; /* green */
+$category7: #eebb2c; /* yellow */
+$category8: #e02827; /* red */
+$category9: #d56230; /* orange */
+$textColor: #575552; /* dark grey */
+
+
+.dimension {
+  cursor: ns-resize;
+}
+
+.category {
+  cursor: ew-resize;
+}
+
+.dimension tspan.name {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; ;
+  font-weight: 300;
+  font-size: 24px;
+  color: $textColor;
+  letter-spacing: -0.2px;
+}
+
+.dimension tspan.sort {
+  fill: $textColor;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.dimension tspan.sort:hover {
+  fill: $textColor;
+}
+
+.dimension:hover tspan.name {
+  fill: $textColor;
+}
+
+.dimension:hover tspan.sort {
+  opacity: 1;
+}
+
+.dimension line {
+  stroke: $textColor;
+}
+
+.dimension rect {
+  stroke: none;
+  fill-opacity: 0;
+}
+
+.dimension > rect, .category-background {
+  fill: $textColor;
+}
+
+.dimension > rect {
+  display: none;
+}
+
+.category:hover rect {
+  fill-opacity: .3;
+}
+
+.dimension:hover > rect {
+  fill-opacity: .3;
+}
+
+.ribbon path {
+  stroke-opacity: 0;
+  fill-opacity: .2;
+}
+
+.ribbon path.active {
+  fill-opacity: .9;
+}
+
+.ribbon-mouse path {
+  fill-opacity: 0;
+}
+
+.category-0 {
+  fill: $category0;
+  stroke: $category0;
+}
+
+.category-1 {
+  fill: $category1;
+  stroke: $category1;
+}
+
+.category-2 {
+  fill: $category2;
+  stroke: $category2;
+}
+
+.category-3 {
+  fill: $category3;
+  stroke: $category3;
+}
+
+.category-4 {
+  fill: $category4;
+  stroke: $category4;
+}
+
+.category-5 {
+  fill: $category5;
+  stroke: $category5;
+}
+
+.category-6 {
+  fill: $category6;
+  stroke: $category6;
+}
+
+.category-7 {
+  fill: $category7;
+  stroke: $category7;
+}
+
+.category-8 {
+  fill: $category8;
+  stroke: $category8;
+}
+
+.category-9 {
+  fill: $category9;
+  stroke: $category9;
+}
+
+.tooltip {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; ;
+  font-weight: 300;
+  font-size: 12px;
+  color: lighten($textColor, 40%);
+  background-color: rgba(40, 40, 40, 0.9);
+  position: absolute;
+  padding: 5px;
+}
+
+/*# sourceMappingURL=d3.parsets.css.map */

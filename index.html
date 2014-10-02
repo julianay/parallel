@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Parallel Sets</title>
+<style>
+@import url(css/d3.parsets.css);
+@import url(css/barc.css);
+</style>
+
+<body>
+<h1>Parallel Sets</h1>
+
+<h2>Control Correlation</h2>
+<div id="vis"><noscript><img src="parsets.png"></noscript></div>
+<div class="options">
+  <span class="curves"><label for="curved"><input type="checkbox" id="curved" onchange="curves.call(this)"> Curves?</label></span>
+</div>
+
+<script src="d3/d3.min.js"></script>
+<script src="d3.parsets.js"></script>
+<script src="highlight.min.js"></script>
+<script>
+
+var padding_width = 200;
+var padding_height = 200;
+var chart = d3.parsets()
+    .dimensions(["Lorem5", "Lorem2", "Lorem3"]);
+
+var vis = d3.select("#vis").append("svg")
+    .attr("width", (chart.width() + padding_width))
+    .attr("height", (chart.height() + padding_height));
+
+function curves() {
+  var t = vis;
+  t.call(chart.tension(this.checked ? .5 : 1));
+}
+
+d3.csv("controls.csv", function(error, csv) {
+;  vis.datum(csv).call(chart);
+});
+
+</script>

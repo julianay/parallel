@@ -1,0 +1,146 @@
+/* grey */
+/* light blue */
+/* blue */
+/* pink */
+/* purple */
+/* burgundy */
+/* green */
+/* yellow */
+/* red */
+/* orange */
+/* dark grey */
+.dimension {
+  cursor: ns-resize;
+}
+
+.category {
+  cursor: ew-resize;
+}
+
+.dimension tspan.name {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  color: #575552;
+  letter-spacing: -0.2px;
+}
+
+.dimension tspan.sort {
+  fill: #575552;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.dimension tspan.sort:hover {
+  fill: #575552;
+}
+
+.dimension:hover tspan.name {
+  fill: #575552;
+}
+
+.dimension:hover tspan.sort {
+  opacity: 1;
+}
+
+.dimension line {
+  stroke: #575552;
+}
+
+.dimension rect {
+  stroke: none;
+  fill-opacity: 0;
+}
+
+.dimension > rect, .category-background {
+  fill: #575552;
+}
+
+.dimension > rect {
+  display: none;
+}
+
+.category:hover rect {
+  fill-opacity: .3;
+}
+
+.dimension:hover > rect {
+  fill-opacity: .3;
+}
+
+.ribbon path {
+  stroke-opacity: 0;
+  fill-opacity: .2;
+}
+
+.ribbon path.active {
+  fill-opacity: .9;
+}
+
+.ribbon-mouse path {
+  fill-opacity: 0;
+}
+
+.category-0 {
+  fill: #b2aa9b;
+  stroke: #b2aa9b;
+}
+
+.category-1 {
+  fill: #78b3b2;
+  stroke: #78b3b2;
+}
+
+.category-2 {
+  fill: #40709c;
+  stroke: #40709c;
+}
+
+.category-3 {
+  fill: #ea9290;
+  stroke: #ea9290;
+}
+
+.category-4 {
+  fill: #784184;
+  stroke: #784184;
+}
+
+.category-5 {
+  fill: #841a19;
+  stroke: #841a19;
+}
+
+.category-6 {
+  fill: #a0c83c;
+  stroke: #a0c83c;
+}
+
+.category-7 {
+  fill: #eebb2c;
+  stroke: #eebb2c;
+}
+
+.category-8 {
+  fill: #e02827;
+  stroke: #e02827;
+}
+
+.category-9 {
+  fill: #d56230;
+  stroke: #d56230;
+}
+
+.tooltip {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #bdbbb8;
+  background-color: rgba(40, 40, 40, 0.9);
+  position: absolute;
+  padding: 5px;
+}
+
+/*# sourceMappingURL=d3.parsets.css.map */
+
+/*# sourceMappingURL=d3.parsets.css.map */
