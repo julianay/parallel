@@ -6,6 +6,7 @@ var tx = 0;
 var ty = 15;
 var ribbonClicked = false;
 var clickedNode = null;
+
 (function() {
   d3.parsets = function() {
     var event = d3.dispatch("sortDimensions", "sortCategories"),
@@ -179,26 +180,29 @@ var clickedNode = null;
               .attr("d", ribbonPath);
           ribbon.sort(function(a, b) { return b.count - a.count; });
           ribbon.exit().remove();
+
           var mouse = g.select(".ribbon-mouse").selectAll("path")
               .data(nodes, function(d) { return d.path; });    
           mouse.enter().append("path")
               .on("mousemove.parsets", function(d) {
-                //ribbon.classed("active", false);
+                ribbon.classed("active", false);
                 highlight(d = d.node, true);
                 showTooltip(tooltip_.call(this, d));
                 d3.event.stopPropagation();
               })
               .on("mousedown.parsets", function(d){
+                /*
                 if(ribbonClicked == false){
-                  ribbonClicked = true;
                   clickedNode = [];
                   clickedNode = d.node;
-                  highlight(d = d.node, true);
+                  highlightClicked(d = d.node, true);
+                  ribbonClicked = true;
                 }else{
-                  ribbonClicked = false;
                   clickedNode = null;
+                  ribbonClicked = false;
                   unhighlight();
                 }
+                */
               });
           mouse
               .sort(function(a, b) { return b.count - a.count; })
@@ -235,7 +239,7 @@ var clickedNode = null;
 
         // Highlight a node and its descendants, and optionally its ancestors.
         function highlight(d, ancestors) {
-          var highlight = [];
+          var  highlight = [];
           (function recurse(d) {
             highlight.push(d);
             for (var k in d.children) recurse(d.children[k]);
@@ -253,7 +257,7 @@ var clickedNode = null;
         function unhighlight() {
           ribbon.classed("active", false);
           hideTooltip();
-          console.log("unhighlight");
+          //console.log("unhighlight" + clickedNode);
           if(clickedNode != null){
             highlight(d = clickedNode, true);
           }
@@ -268,7 +272,7 @@ var clickedNode = null;
           category.exit().remove();
           category
               .on("mousemove.parsets", function(d) {
-                //ribbon.classed("active", false);
+                ribbon.classed("active", false);
                 d.nodes.forEach(function(d) { highlight(d); });
                 showTooltip(categoryTooltip.call(this, d));
                 d3.event.stopPropagation();
@@ -377,6 +381,7 @@ var clickedNode = null;
     }
 
     function showTooltip(html) {
+
       var m = d3.mouse(body.node());
       tooltip
           .style("display", null)
