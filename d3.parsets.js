@@ -1,5 +1,6 @@
 // Parallel Sets by Jason Davies, http://www.jasondavies.com/
 // Functionality based on http://eagereyes.org/parallel-sets
+var curveTension = 0.5; //1.0 straight
 var catBarHeight = 4;
 var textRotation = 30;
 var tx = 0;
@@ -18,7 +19,7 @@ var clickedNode = null;
         spacing = 20,
         width,
         height,
-        tension = 1,
+        tension = curveTension,
         tension0,
         duration = 500;
 
