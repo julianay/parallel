@@ -24,6 +24,18 @@
     .attr("height", (chart.height() + padding_height));
 
 	d3.csv("data2.csv", function(error, csv) {vis.datum(csv).call(chart);});
+	d3.csv("oscars2.csv", function(error, data) {
+		data.forEach(function(d){
+			d.age = +d.age;
+		if(d.age < 15){
+			console.log("<15");
+		}else if(d.age > 15 && d.age < 25 ){
+			console.log("15-25");
+		}
+
+		})
+		
+	});
 	</script>
 
 </body>
