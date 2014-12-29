@@ -1,12 +1,14 @@
 // Parallel Sets by Jason Davies, http://www.jasondavies.com/
 // Functionality based on http://eagereyes.org/parallel-sets
-var curveTension = 0.5; //1.0 straight
-var catBarHeight = 4;
-var textRotation = 30;
-var tx = 0;
-var ty = 15;
+var catBarHeight = 23;
+var textRotation = 0;
+var tx = 10;
+var ty = 10;
 var ribbonClicked = false;
 var clickedNode = null;
+var chartWidth = 960;
+var chartHeight = 600;
+var chartY = 50;
 
 (function() {
   d3.parsets = function() {
@@ -16,10 +18,10 @@ var clickedNode = null;
         tooltip_ = defaultTooltip,
         categoryTooltip = defaultCategoryTooltip,
         value_,
-        spacing = 20,
+        spacing = 50,
         width,
         height,
-        tension = curveTension,
+        tension = 0.5,
         tension0,
         duration = 500;
 
@@ -34,6 +36,8 @@ var clickedNode = null;
             nodes,
             total,
             ribbon;
+
+
         d3.select(window).on("mousemove.parsets." + ++parsetsId, unhighlight);
 
         if (tension0 == null) tension0 = tension;
@@ -42,7 +46,7 @@ var clickedNode = null;
           .enter().append("g")
             .attr("class", String);
         updateDimensions();
-        // called when applying curves
+        //called when applying curves
         if (tension != tension0) {
           var t = d3.transition(g);
           if (t.tween) t.tween("ribbon", tensionTween);
@@ -56,13 +60,12 @@ var clickedNode = null;
             ribbon.attr("d", ribbonPath);
           };
         }
-        
+
         function updateDimensions() {
           // Cache existing bound dimensions to preserve sort order.
           var dimension = g.selectAll("g.dimension"),
               cache = {};
           dimension.each(function(d) { cache[d.name] = d; });
-
           //loops through each category
           dimensionNames.forEach(function(d) {
             if (!cache.hasOwnProperty(d)) {
@@ -73,7 +76,6 @@ var clickedNode = null;
           //passing compareY function as parameter to sort function - assume it's overloading it?
           dimensions.sort(compareY);
           // Populate tree with existing nodes.
-          /* called when design is changed to curves */
           g.select(".ribbon").selectAll("path")
               .each(function(d) {
                 var path = d.path.split("\0"),
@@ -123,9 +125,9 @@ var clickedNode = null;
               });
           dEnter.append("rect")
               .attr("width", width)
-              .attr("y", -45)
+              .attr("y", -25)
               .attr("height", 45);
- 
+              /*
           var textEnter = dEnter.append("text")
               .attr("class", "dimension")
               .attr("transform", "translate(0,-25)");
@@ -141,12 +143,55 @@ var clickedNode = null;
               .attr("class", "sort size")
               .attr("dx", "2em")
               .text("size »")
-              .on("mousedown.parsets", cancelEvent);
+              .on("mousedown.parsets", cancelEvent); */
+          dimension
+              .call(d3.behavior.drag()
+                .origin(identity)
+                .on("dragstart", function(d) {
+                  dragging = true;
+                  d.y0 = d.y;
+                })
+                .on("drag", function(d) {
+                  d.y0 = d.y = d3.event.y;
+                  for (var i = 1; i < dimensions.length; i++) {
+                    if (height * dimensions[i].y < height * dimensions[i - 1].y) {
+                      dimensions.sort(compareY);
+                      dimensionNames = dimensions.map(dimensionName);
+                      ordinal.domain([]).range(d3.range(dimensions[0].categories.length));
+                      nodes = layout(tree = buildTree({children: {}, count: 0}, data, dimensionNames, value_), dimensions, ordinal);
+                      total = getTotal(dimensions);
+                      g.selectAll(".ribbon, .ribbon-mouse").selectAll("path").remove();
+                      updateRibbons();
+                      updateCategories(dimension);
+                      dimension.transition().duration(duration)
+                          .attr("transform", translateY)
+                          .tween("ribbon", ribbonTweenY);
+                      event.sortDimensions();
+                      break;
+                    }
+                  }
+                  d3.select(this)
+                      .attr("transform", "translate(0," + d.y + ")")
+                      .transition();
+                  ribbon.filter(function(r) { return r.source.dimension === d || r.target.dimension === d; })
+                      .attr("d", ribbonPath);
+                })
+                .on("dragend", function(d) {
+                  dragging = false;
+                  unhighlight();
+                  var y0 = 45,
+                      dy = (height - y0 - 2) / (dimensions.length - 1);
+                  dimensions.forEach(function(d, i) {
+                    d.y = y0 + i * dy;
+                  });
+                  transition(d3.select(this))
+                      .attr("transform", "translate(0," + d.y + ")")
+                      .tween("ribbon", ribbonTweenY);
+                }));
           dimension.select("text").select("tspan.sort.alpha")
               .on("click.parsets", sortBy("alpha", function(a, b) { return a.name < b.name ? 1 : -1; }, dimension));
           dimension.select("text").select("tspan.sort.size")
               .on("click.parsets", sortBy("size", function(a, b) { return a.count - b.count; }, dimension));
-             
           dimension.transition().duration(duration)
               .attr("transform", function(d) { return "translate(0," + d.y + ")"; })
               .tween("ribbon", ribbonTweenY);
@@ -156,7 +201,6 @@ var clickedNode = null;
           updateRibbons();
         }
 
-        
         function sortBy(type, f, dimension) {
           return function(d) {
             var direction = this.__direction = -(this.__direction || 1);
@@ -181,29 +225,15 @@ var clickedNode = null;
               .attr("d", ribbonPath);
           ribbon.sort(function(a, b) { return b.count - a.count; });
           ribbon.exit().remove();
-
           var mouse = g.select(".ribbon-mouse").selectAll("path")
-              .data(nodes, function(d) { return d.path; });    
+              .data(nodes, function(d) { return d.path; });
           mouse.enter().append("path")
               .on("mousemove.parsets", function(d) {
                 ribbon.classed("active", false);
+                if (dragging) return;
                 highlight(d = d.node, true);
                 showTooltip(tooltip_.call(this, d));
                 d3.event.stopPropagation();
-              })
-              .on("mousedown.parsets", function(d){
-                /*
-                if(ribbonClicked == false){
-                  clickedNode = [];
-                  clickedNode = d.node;
-                  highlightClicked(d = d.node, true);
-                  ribbonClicked = true;
-                }else{
-                  clickedNode = null;
-                  ribbonClicked = false;
-                  unhighlight();
-                }
-                */
               });
           mouse
               .sort(function(a, b) { return b.count - a.count; })
@@ -240,7 +270,8 @@ var clickedNode = null;
 
         // Highlight a node and its descendants, and optionally its ancestors.
         function highlight(d, ancestors) {
-          var  highlight = [];
+          if (dragging) return;
+          var highlight = [];
           (function recurse(d) {
             highlight.push(d);
             for (var k in d.children) recurse(d.children[k]);
@@ -256,12 +287,9 @@ var clickedNode = null;
 
         // Unhighlight all nodes.
         function unhighlight() {
+          if (dragging) return;
           ribbon.classed("active", false);
           hideTooltip();
-          //console.log("unhighlight" + clickedNode);
-          if(clickedNode != null){
-            highlight(d = clickedNode, true);
-          }
         }
 
         function updateCategories(g) {
@@ -274,25 +302,79 @@ var clickedNode = null;
           category
               .on("mousemove.parsets", function(d) {
                 ribbon.classed("active", false);
+                if (dragging) return;
                 d.nodes.forEach(function(d) { highlight(d); });
                 showTooltip(categoryTooltip.call(this, d));
                 d3.event.stopPropagation();
               })
               .on("mouseout.parsets", unhighlight)
-              .on("mousedown.parsets", cancelEvent);
+              .on("mousedown.parsets", cancelEvent)
+              .call(d3.behavior.drag()
+                .origin(identity)
+                .on("dragstart", function(d) {
+                  dragging = true;
+                  d.x0 = d.x;
+                })
+                .on("drag", function(d) {
+                  d.x = d3.event.x;
+                  var categories = d.dimension.categories;
+                  for (var i = 0, c = categories[0]; ++i < categories.length;) {
+                    if (c.x + c.dx / 2 > (c = categories[i]).x + c.dx / 2) {
+                      categories.sort(function(a, b) { return a.x + a.dx / 2 - b.x - b.dx / 2; });
+                      nodes = layout(tree, dimensions, ordinal);
+                      updateRibbons();
+                      updateCategories(g);
+                      highlight(d.node);
+                      event.sortCategories();
+                      break;
+                    }
+                  }
+                  var x = 0,
+                      p = spacing / (categories.length - 1);
+                  categories.forEach(function(e) {
+                    if (d === e) e.x0 = d3.event.x;
+                    e.x = x;
+                    x += e.count / total * (width - spacing) + p;
+                  });
+                  d3.select(this)
+                      .attr("transform", function(d) { return "translate(" + d.x0 + ")"; })
+                      .transition();
+                  ribbon.filter(function(r) { return r.source.node === d || r.target.node === d; })
+                      .attr("d", ribbonPath);
+                })
+                .on("dragend", function(d) {
+                  dragging = false;
+                  unhighlight();
+                  updateRibbons();
+                  transition(d3.select(this))
+                      .attr("transform", "translate(" + d.x + ")")
+                      .tween("ribbon", ribbonTweenX);
+                }));
           category.transition().duration(duration)
               .attr("transform", function(d) { return "translate(" + d.x + ")"; })
               .tween("ribbon", ribbonTweenX);
-          //hover rect for text    
+
           categoryEnter.append("rect")
-              .attr("width", function(d) { return d.dx; })
-              .attr("y", -20)
+              .attr("width", function(d) {  return d.dx; })
+              .attr("y", -10)
               .attr("height", 20);
-          //Categories horizontal bars   
+          //Categories horizontal bars    
+/*
           categoryEnter.append("line")
-              .style("stroke-width", catBarHeight);
+              .style("stroke-width", catBarHeight);*/
+
+          categoryEnter.append("line")
+              .style("stroke-width", function(d, i) { 
+                if (d.name.match(/^(suspicious|fraud|normal)$/)) {
+                /*if(d.name == "suspicious"){*/
+                  return 35; 
+                }else{
+                  return catBarHeight;
+                }
+              });
+
           categoryEnter.append("text")
-              .attr("dy", "-.3em")
+              .attr("dy", "-.4em")
               .attr("transform", "translate(" + tx + "," + ty + ")rotate(" + textRotation + ")");
           category.select("rect")
               .attr("width", function(d) { return d.dx; })
@@ -300,12 +382,15 @@ var clickedNode = null;
                 return "category-" + (d.dimension === dimensions[0] ? ordinal(d.name) : "background");
               });
           category.select("line")
-              .attr("x2", function(d) { return d.dx; });
+              .attr("x2", function(d) { return d.dx; })
+              .attr("class", function(d) {
+                return "category-" + (d.dimension === dimensions[0] ? ordinal(d.name) : "background");
+              });
           category.select("text")
-              .text(function(d) { return d.name; }, function(d) { return d.dx; });   
-              /*
-          category.select("text")
-              .text(truncateText(function(d) { return d.name; }, function(d) { return d.dx; }));*/
+              .text(truncateText(function(d) { return d.dimension.name + ": " +  d.name; }, function(d) { return d.dx; }))
+              .attr("class", function(d) {
+                return "text-" + (d.dimension === dimensions[0] ? ordinal(d.name) : "background");
+              });;
         }
       });
     }
@@ -360,7 +445,7 @@ var clickedNode = null;
 
     parsets.tooltip = function(_) {
       if (!arguments.length) return tooltip;
-      tooltip = _ == null ? defaultTooltip : _;
+      tooltip_ = _ == null ? defaultTooltip : _;
       return parsets;
     };
 
@@ -375,14 +460,13 @@ var clickedNode = null;
         .style("display", "none")
         .attr("class", "parsets tooltip");
 
-    return d3.rebind(parsets, event, "on").value(1).width(900).height(600);
+    return d3.rebind(parsets, event, "on").value(1).width(chartWidth).height(chartHeight);
 
     function dimensionFormatName(d, i) {
       return dimensionFormat.call(this, d.name, i);
     }
 
     function showTooltip(html) {
-
       var m = d3.mouse(body.node());
       tooltip
           .style("display", null)
@@ -402,8 +486,8 @@ var clickedNode = null;
     function layout(tree, dimensions, ordinal) {
       var nodes = [],
           nd = dimensions.length,
-          y0 = 45, //where y coordinate starts
-          dy = (height - y0 - 2) / (nd - 1); //height of each row
+          y0 = chartY,
+          dy = (height - y0 - 2) / (nd - 1);
       dimensions.forEach(function(d, i) {
         d.categories.forEach(function(c) {
           c.dimension = d;
@@ -426,17 +510,17 @@ var clickedNode = null;
           c.count += count;
           total += count;
         });
-        return total; //total number of rows?
+        return total;
       })(tree, 0);
 
       // Stack the counts.
       dimensions.forEach(function(d) {
         d.categories = d.categories.filter(function(d) { return d.count; });
         var x = 0,
-            p = spacing / (d.categories.length - 1); //calculate spacing btw columns based on num of categories
+            p = spacing / (d.categories.length - 1);
         d.categories.forEach(function(c) {
           c.x = x;
-          c.dx = c.count / total * (width - spacing); //checking available width
+          c.dx = c.count / total * (width - spacing);
           c.in = {dx: 0};
           c.out = {dx: 0};
           x += c.dx + p;
@@ -450,8 +534,8 @@ var clickedNode = null;
           recurse(c, {node: tree.children[k], path: k}, 1, ordinal(k));
         }
       });
-      function recurse(p, d, depth, major) {
 
+      function recurse(p, d, depth, major) {
         var node = d.node,
             dimension = dimensions[depth];
         dimension.categories.forEach(function(c) {
@@ -566,7 +650,7 @@ var clickedNode = null;
         nd = dimensions.length;
     for (var i = 0; i < n; i++) {
       var d = data[i],
-          v = value(d, i),
+          v = +value(d, i),
           node = root;
       for (var j = 0; j < nd; j++) {
         var dimension = dimensions[j],
@@ -602,10 +686,10 @@ var clickedNode = null;
     var count = d.count,
         path = [];
     while (d.parent) {
-      if (d.name) path.unshift(d.name);
+      if (d.name) path.unshift(d.dimension + ":" + d.name);
       d = d.parent;
     }
-    return path.join(" → ") + "<br>" + comma(count) + " (" + percent(count / d.count) + ")";
+    return path.join("<br> ▼ <br>") + "<br>" + comma(count) + " (" + percent(count / d.count) + ")";
   }
 
   function defaultCategoryTooltip(d) {

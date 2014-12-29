@@ -1,34 +1,30 @@
 
 <!DOCTYPE html>
-<meta charset="utf-8">
-<title>Parallel Sets</title>
-<style>
-@import url(css/d3.parsets.css);
-@import url(css/barc.css);
-</style>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Fraud Patterns</title>
+	<style>@import url(css/d3.parsets.css);</style>
+	<script src="d3/d3.min.js"></script>
+	<script src="d3.parsets.js"></script>
+	<script src="highlight.min.js"></script>
+	</head>
+	<body>
+	<h1>Fraud Patterns</h1>
+	<div id="vis"><noscript><img src="parsets.png"></noscript></div>
 
-<body>
-<h1>Parallel Sets</h1>
+	<script>
+	var padding_width = 200;
+	var padding_height = 200;
+	var chart = d3.parsets()
+    .dimensions(["activity", "income", "region", "married", "age", "children", "sex"]);
 
-<h2>Control Correlation</h2>
-<div id="vis"><noscript><img src="parsets.png"></noscript></div>
-
-<script src="d3/d3.min.js"></script>
-<script src="d3.parsets.js"></script>
-<script src="highlight.min.js"></script>
-<script>
-
-var padding_width = 200;
-var padding_height = 200;
-var chart = d3.parsets()
-    .dimensions(["Out of hours", "Ecomms","MBL"]);
-
-var vis = d3.select("#vis").append("svg")
+	var vis = d3.select("#vis").append("svg")
     .attr("width", (chart.width() + padding_width))
     .attr("height", (chart.height() + padding_height));
 
-d3.csv("controls.csv", function(error, csv) {
-;  vis.datum(csv).call(chart);
-});
+	d3.csv("data2.csv", function(error, csv) {vis.datum(csv).call(chart);});
+	</script>
 
-</script>
+</body>
+</html>
