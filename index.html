@@ -10,32 +10,21 @@
 	<script src="highlight.min.js"></script>
 	</head>
 	<body>
-	<h1>Fraud Patterns</h1>
+	<h1>The Prime Age to Win an Oscar</h1>
 	<div id="vis"><noscript><img src="parsets.png"></noscript></div>
 
 	<script>
 	var padding_width = 200;
 	var padding_height = 200;
 	var chart = d3.parsets()
-    .dimensions(["activity", "income", "region", "married", "age", "children", "sex"]);
+    .dimensions(["award", "winner", "range"]);
 
 	var vis = d3.select("#vis").append("svg")
     .attr("width", (chart.width() + padding_width))
     .attr("height", (chart.height() + padding_height));
 
-	d3.csv("data2.csv", function(error, csv) {vis.datum(csv).call(chart);});
-	d3.csv("oscars2.csv", function(error, data) {
-		data.forEach(function(d){
-			d.age = +d.age;
-		if(d.age < 15){
-			console.log("<15");
-		}else if(d.age > 15 && d.age < 25 ){
-			console.log("15-25");
-		}
+	d3.csv("oscars3.csv", function(error, csv) {vis.datum(csv).call(chart);});
 
-		})
-		
-	});
 	</script>
 
 </body>
