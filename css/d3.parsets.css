@@ -1,14 +1,95 @@
-/* orange */
-/* red */
-/* blue */
-/* pink */
-/* purple */
-/* burgundy */
-/* green */
-/* light blue */
-/* grey */
-/* yellow */
 /* dark grey */
+/* yellow */
+line.category-0 {
+  stroke: #ff00ff;
+}
+
+.category-0 {
+  fill: #ff00ff;
+  stroke: #ff00ff;
+}
+
+line.category-1 {
+  stroke: #be5021;
+}
+
+line.category-2 {
+  stroke: #9b0e0d;
+}
+
+line.category-3 {
+  stroke: #40709c;
+}
+
+line.category-4 {
+  stroke: #ea9290;
+}
+
+line.category-5 {
+  stroke: #784184;
+}
+
+line.category-6 {
+  stroke: #841a19;
+}
+
+line.category-7 {
+  stroke: #a0c83c;
+}
+
+line.category-8 {
+  stroke: #78b3b2;
+}
+
+line.category-9 {
+  stroke: #b2aa9b;
+}
+
+.category-1 {
+  fill: #be5021;
+  stroke: #be5021;
+}
+
+.category-2 {
+  fill: #9b0e0d;
+  stroke: #9b0e0d;
+}
+
+.category-3 {
+  fill: #40709c;
+  stroke: #40709c;
+}
+
+.category-4 {
+  fill: #ea9290;
+  stroke: #ea9290;
+}
+
+.category-5 {
+  fill: #784184;
+  stroke: #784184;
+}
+
+.category-6 {
+  fill: #841a19;
+  stroke: #841a19;
+}
+
+.category-7 {
+  fill: #a0c83c;
+  stroke: #a0c83c;
+}
+
+.category-8 {
+  fill: #78b3b2;
+  stroke: #78b3b2;
+}
+
+.category-9 {
+  fill: #b2aa9b;
+  stroke: #b2aa9b;
+}
+
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 200;
@@ -22,14 +103,6 @@ body {
   background-color: #333;
 }
 
-/*
-h1, h2, .dimension text {
-  text-align: center;
-  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 200;
-  color:#fff;
-}
-*/
 .category text {
   fill: #999;
   font-size: 12px;
@@ -38,7 +111,7 @@ h1, h2, .dimension text {
 }
 
 h1 {
-  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 200;
   letter-spacing: 1.3px;
   font-size: 30px;
@@ -119,19 +192,6 @@ text.icicle {
   text-align: center;
 }
 
-line.category-0 {
-  stroke: #be5021;
-  stroke-width: 60px;
-}
-
-line.category-1 {
-  stroke: #9b0e0d;
-}
-
-line.category-2 {
-  stroke: #40709c;
-}
-
 text.text-0 {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
@@ -188,56 +248,6 @@ text.text-2 {
 
 .ribbon-mouse path {
   fill-opacity: 0;
-}
-
-.category-0 {
-  fill: #be5021;
-  stroke: #be5021;
-}
-
-.category-1 {
-  fill: #9b0e0d;
-  stroke: #9b0e0d;
-}
-
-.category-2 {
-  fill: #40709c;
-  stroke: #40709c;
-}
-
-.category-3 {
-  fill: #ea9290;
-  stroke: #ea9290;
-}
-
-.category-4 {
-  fill: #784184;
-  stroke: #784184;
-}
-
-.category-5 {
-  fill: #841a19;
-  stroke: #841a19;
-}
-
-.category-6 {
-  fill: #a0c83c;
-  stroke: #a0c83c;
-}
-
-.category-7 {
-  fill: #78b3b2;
-  stroke: #78b3b2;
-}
-
-.category-8 {
-  fill: #b2aa9b;
-  stroke: #b2aa9b;
-}
-
-.category-9 {
-  fill: #eebb2c;
-  stroke: #eebb2c;
 }
 
 .tooltip {

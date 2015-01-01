@@ -1,18 +1,57 @@
-$category0: #be5021; /* orange */
-$category1: #9b0e0d; /* red */
-$category2: #40709c; /* blue */
-$category3: #ea9290; /* pink */
-$category4: #784184; /* purple */
-$category5: #841a19; /* burgundy */
-$category6: #a0c83c; /* green */
-$category7: #78b3b2; /* light blue */
-$category8: #b2aa9b; /* grey */
-$category9: #eebb2c; /* yellow */
 $textColor: #aaa; /* dark grey */
+$category0: #ff00ff;
+$category: 
+#be5021, /* orange */
+#9b0e0d, /* red */
+#40709c, /* blue */
+#ea9290, /* pink */
+#784184, /* purple */
+#841a19, /* burgundy */
+#a0c83c, /* green */
+#78b3b2, /* light blue */
+#b2aa9b, /* grey */
+#eebb2c; /* yellow */
 
-body {
+ @mixin font-style{
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+ }
+
+  @mixin font-style-light{
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 200;
+ }
+
+  @mixin font-style-bar{
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1px;
+  fill: #fff;
+  font-size:14px;
+ }
+
+
+//special class:
+line.category-0 {
+  stroke: $category0;
+}
+
+.category-0 {
+  fill: $category0;
+  stroke: $category0;
+}
+//creates line.category classes
+$bars: 9;
+@for $i from 1 through $bars{
+  line.category-#{$i} { stroke: nth($category, $i) }
+}
+
+@for $i from 1 through $bars{
+  .category-#{$i} { fill: nth($category, $i); stroke: nth($category, $i); }
+}
+
+body {
+  @include font-style-light;
   letter-spacing: -0.1px;
   font-size: 10px;
   color: $textColor;
@@ -22,14 +61,6 @@ body {
   text-align: center;
   background-color: #333;
 }
-/*
-h1, h2, .dimension text {
-  text-align: center;
-  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 200;
-  color:#fff;
-}
-*/
 
 .category text {
    fill: #999;
@@ -39,8 +70,7 @@ h1, h2, .dimension text {
 }
 
 h1 {
-  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 200;
+  @include font-style-light;
   letter-spacing: 1.3px;
   font-size: 30px;
   margin-top: 40px;
@@ -105,41 +135,16 @@ text.icicle { pointer-events: none; }
   text-align: center;
 }
 
-line.category-0 {
-  stroke: $category0;
-  stroke-width: 60px;
-}
-
-line.category-1 {
-  stroke: $category1;
-}
-
-line.category-2 {
-  stroke: $category2;
-}
-
 text.text-0{
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.1px;
-  fill: #fff;
-  font-size:14px;
+  @include font-style-bar;
 }
 
 text.text-1{
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.1px;
-  fill: #fff;
-  font-size:14px;
+  @include font-style-bar;
 }
 
 text.text-2{
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.1px;
-  fill: #fff;
-  font-size:14px;
+  @include font-style-bar;
 }
 
 .dimension rect {
@@ -176,59 +181,8 @@ text.text-2{
   fill-opacity: 0;
 }
 
-.category-0 {
-  fill: $category0;
-  stroke: $category0;
-}
-
-.category-1 {
-  fill: $category1;
-  stroke: $category1;
-}
-
-.category-2 {
-  fill: $category2;
-  stroke: $category2;
-}
-
-.category-3 {
-  fill: $category3;
-  stroke: $category3;
-}
-
-.category-4 {
-  fill: $category4;
-  stroke: $category4;
-}
-
-.category-5 {
-  fill: $category5;
-  stroke: $category5;
-}
-
-.category-6 {
-  fill: $category6;
-  stroke: $category6;
-}
-
-.category-7 {
-  fill: $category7;
-  stroke: $category7;
-}
-
-.category-8 {
-  fill: $category8;
-  stroke: $category8;
-}
-
-.category-9 {
-  fill: $category9;
-  stroke: $category9;
-}
-
 .tooltip {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; ;
-  font-weight: 300;
+  @include font-style;
   font-size: 10px;
   /*color: lighten($textColor, 40%);*/
   color:#fff;
