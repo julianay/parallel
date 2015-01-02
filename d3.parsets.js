@@ -127,7 +127,7 @@ var chartY = 50;
               .attr("width", width)
               .attr("y", -25)
               .attr("height", 45);
-              /*
+              
           var textEnter = dEnter.append("text")
               .attr("class", "dimension")
               .attr("transform", "translate(0,-25)");
@@ -143,7 +143,7 @@ var chartY = 50;
               .attr("class", "sort size")
               .attr("dx", "2em")
               .text("size »")
-              .on("mousedown.parsets", cancelEvent); */
+              .on("mousedown.parsets", cancelEvent); 
           dimension
               .call(d3.behavior.drag()
                 .origin(identity)
@@ -387,7 +387,7 @@ var chartY = 50;
                 return "category-" + (d.dimension === dimensions[0] ? ordinal(d.name) : "background");
               });
           category.select("text")
-              .text(truncateText(function(d) { return d.dimension.name + ": " +  d.name; }, function(d) { return d.dx; }))
+              .text(truncateText(function(d) { return d.name; }, function(d) { return d.dx; }))
               .attr("class", function(d) {
                 return "text-" + (d.dimension === dimensions[0] ? ordinal(d.name) : "background");
               });;
