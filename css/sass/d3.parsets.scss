@@ -63,69 +63,14 @@ p.meta, p.footer {
 p.meta {
   text-align: center;
 }
-/*
-text.icicle {
-  pointer-events: none;
-}
-
-
-.options {
-  font-size: 10px;
-  text-align: center;
-  padding: 5px 0;
-}
-
-.curves {
-  float: left;
-}
-
-.source {
-  float: right;
-}
-
-.dimension {
-  cursor: ns-resize;
-}
-*/
-
-.category {
-  cursor: ew-resize;
-}
-
-/*
-.dimension tspan.name {
-  font-size: 10px;
-  color: #aaa;
-  letter-spacing: -0.2px;
-  opacity: 0;
-}
-
-.dimension tspan.sort {
-  fill: #aaa;
-  cursor: pointer;
-  opacity: 0;
-}
-
-.dimension tspan.sort:hover {
-  fill: #aaa;
-}
-
-.dimension:hover tspan.name {
-  fill: #aaa;
-}
-
-.dimension:hover tspan.sort {
-  opacity: 1;
-}
-*/
 
 .dimension line {
   stroke: rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 
-
 .category {
+   cursor: ew-resize;
    fill: #999;
    font-size: 12px;
    text-transform: uppercase;
