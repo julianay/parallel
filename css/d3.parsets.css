@@ -1,12 +1,10 @@
 /* dark grey */
 /* yellow */
-line.category-0 {
-  stroke: #ff00ff;
-}
-
-.category-0 {
-  fill: #ff00ff;
-  stroke: #ff00ff;
+.category {
+  fill: #999;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1px;
 }
 
 line.category-1 {
@@ -90,6 +88,92 @@ line.category-9 {
   stroke: #b2aa9b;
 }
 
+.category-1 {
+  fill: #be5021;
+  stroke: #be5021;
+}
+
+.category-2 {
+  fill: #9b0e0d;
+  stroke: #9b0e0d;
+}
+
+.category-3 {
+  fill: #40709c;
+  stroke: #40709c;
+}
+
+.category-4 {
+  fill: #ea9290;
+  stroke: #ea9290;
+}
+
+.category-5 {
+  fill: #784184;
+  stroke: #784184;
+}
+
+.category-6 {
+  fill: #841a19;
+  stroke: #841a19;
+}
+
+.category-7 {
+  fill: #a0c83c;
+  stroke: #a0c83c;
+}
+
+.category-8 {
+  fill: #78b3b2;
+  stroke: #78b3b2;
+}
+
+.category-9 {
+  fill: #b2aa9b;
+  stroke: #b2aa9b;
+}
+
+text.text-1 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1px;
+  fill: #fff;
+  font-size: 14px;
+}
+
+text.text-2 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1px;
+  fill: #fff;
+  font-size: 14px;
+}
+
+text.text-3 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1px;
+  fill: #fff;
+  font-size: 14px;
+}
+
+line.category-0 {
+  stroke: #ff00ff;
+}
+
+.category-0 {
+  fill: #ff00ff;
+  stroke: #ff00ff;
+}
+
+text.text-0 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1px;
+  fill: #fff;
+  font-size: 14px;
+}
+
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 200;
@@ -101,13 +185,6 @@ body {
   position: relative;
   text-align: center;
   background-color: #333;
-}
-
-.category text {
-  fill: #999;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.1px;
 }
 
 h1 {
@@ -136,16 +213,6 @@ p.meta {
   text-align: center;
 }
 
-text.icicle {
-  pointer-events: none;
-}
-
-.options {
-  font-size: 10px;
-  text-align: center;
-  padding: 5px 0;
-}
-
 .curves {
   float: left;
 }
@@ -154,75 +221,14 @@ text.icicle {
   float: right;
 }
 
-.dimension {
-  cursor: ns-resize;
-}
-
-.category {
-  cursor: ew-resize;
-}
-
-.dimension tspan.name {
-  font-size: 10px;
-  color: #aaa;
-  letter-spacing: -0.2px;
-  opacity: 0;
-}
-
-.dimension tspan.sort {
-  fill: #aaa;
-  cursor: pointer;
-  opacity: 0;
-}
-
-.dimension tspan.sort:hover {
-  fill: #aaa;
-}
-
-.dimension:hover tspan.name {
-  fill: #aaa;
-}
-
-.dimension:hover tspan.sort {
-  opacity: 1;
-}
-
 .dimension line {
   stroke: rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 
-text.text-0 {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.1px;
-  fill: #fff;
-  font-size: 14px;
-}
-
-text.text-1 {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.1px;
-  fill: #fff;
-  font-size: 14px;
-}
-
-text.text-2 {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.1px;
-  fill: #fff;
-  font-size: 14px;
-}
-
 .dimension rect {
   stroke: none;
   fill-opacity: 0;
-}
-
-.dimension > rect, .category-background {
-  fill: #aaa;
 }
 
 .dimension > rect {

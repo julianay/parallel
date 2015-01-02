@@ -30,16 +30,13 @@ $category:
   font-size:14px;
  }
 
-
-//special class:
-line.category-0 {
-  stroke: $category0;
+ .category {
+   fill: #999;
+   font-size: 12px;
+   text-transform: uppercase;
+   letter-spacing: 0.1px;
 }
 
-.category-0 {
-  fill: $category0;
-  stroke: $category0;
-}
 //creates line.category classes
 $bars: 9;
 @for $i from 1 through $bars{
@@ -48,6 +45,30 @@ $bars: 9;
 
 @for $i from 1 through $bars{
   .category-#{$i} { fill: nth($category, $i); stroke: nth($category, $i); }
+}
+
+@for $i from 1 through $bars{
+  .category-#{$i} { fill: nth($category, $i); stroke: nth($category, $i); }
+}
+
+//top categories (first row accent)
+$top-bars: 3;
+@for $i from 1 through $top-bars{
+  text.text-#{$i} { @include font-style-bar; }
+}
+
+//special class
+line.category-0 {
+  stroke: $category0;
+}
+
+.category-0 {
+  fill: $category0;
+  stroke: $category0;
+}
+
+text.text-0 {
+  @include font-style-bar;
 }
 
 body {
@@ -60,13 +81,6 @@ body {
   position: relative;
   text-align: center;
   background-color: #333;
-}
-
-.category text {
-   fill: #999;
-   font-size: 12px;
-   text-transform: uppercase;
-   letter-spacing: 0.1px;
 }
 
 h1 {
@@ -91,69 +105,17 @@ p.meta {
   text-align: center;
 }
 
-text.icicle { pointer-events: none; }
-
-.options { font-size: 10px; text-align: center; padding: 5px 0; }
 .curves { float: left; }
 .source { float: right; }
-
-.dimension {
-  cursor: ns-resize;
-}
-
-.category {
-  cursor: ew-resize;
-}
-
-.dimension tspan.name {
-  font-size: 10px;
-  color: $textColor;
-  letter-spacing: -0.2px;
-  opacity: 0;
-}
-
-.dimension tspan.sort {
-  fill: $textColor;
-  cursor: pointer;
-  opacity: 0;
-}
-
-.dimension tspan.sort:hover {
-  fill: $textColor;
-}
-
-.dimension:hover tspan.name {
-  fill: $textColor;
-}
-
-.dimension:hover tspan.sort {
-  opacity: 1;
-}
 
 .dimension line {
   stroke: rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 
-text.text-0{
-  @include font-style-bar;
-}
-
-text.text-1{
-  @include font-style-bar;
-}
-
-text.text-2{
-  @include font-style-bar;
-}
-
 .dimension rect {
   stroke: none;
   fill-opacity: 0;
-}
-
-.dimension > rect, .category-background {
-  fill: $textColor;
 }
 
 .dimension > rect {
@@ -192,5 +154,6 @@ text.text-2{
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
 
 /*# sourceMappingURL=d3.parsets.css.map */
