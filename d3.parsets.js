@@ -9,6 +9,8 @@ var clickedNode = null;
 var chartWidth = 960;
 var chartHeight = 600;
 var chartY = 50;
+/* regex string to make top categories bars taller */
+var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supporting Actor)$/;
 
 (function() {
   d3.parsets = function() {
@@ -38,7 +40,7 @@ var chartY = 50;
             ribbon;
 
 
-        d3.select(window).on("mousemove.parsets." + ++parsetsId, unhighlight);
+        d3.select(window).on("mousemove.parsets." + ++parsetsId, unhighlight); 
 
         if (tension0 == null) tension0 = tension;
         g.selectAll(".ribbon, .ribbon-mouse")
@@ -75,6 +77,7 @@ var chartY = 50;
           });
           //passing compareY function as parameter to sort function - assume it's overloading it?
           dimensions.sort(compareY);
+          
           // Populate tree with existing nodes.
           g.select(".ribbon").selectAll("path")
               .each(function(d) {
@@ -127,7 +130,7 @@ var chartY = 50;
               .attr("width", width)
               .attr("y", -25)
               .attr("height", 45);
-              
+
           var textEnter = dEnter.append("text")
               .attr("class", "dimension")
               .attr("transform", "translate(0,-25)");
@@ -188,22 +191,30 @@ var chartY = 50;
                       .attr("transform", "translate(0," + d.y + ")")
                       .tween("ribbon", ribbonTweenY);
                 }));
+
+          //dimension.on("load", sortBy("alpha", function(a, b) { return a.name < b.name ? 1 : -1; }, dimension)); 
+        
           dimension.select("text").select("tspan.sort.alpha")
               .on("click.parsets", sortBy("alpha", function(a, b) { return a.name < b.name ? 1 : -1; }, dimension));
+              
           dimension.select("text").select("tspan.sort.size")
               .on("click.parsets", sortBy("size", function(a, b) { return a.count - b.count; }, dimension));
+              
           dimension.transition().duration(duration)
               .attr("transform", function(d) { return "translate(0," + d.y + ")"; })
               .tween("ribbon", ribbonTweenY);
           dimension.exit().remove();
+          
 
           updateCategories(dimension);
           updateRibbons();
         }
 
         function sortBy(type, f, dimension) {
+          console.log("sort by out " + type);
           return function(d) {
             var direction = this.__direction = -(this.__direction || 1);
+            
             d3.select(this).text(direction > 0 ? type + " »" : "« " + type);
             d.categories.sort(function() { return direction * f.apply(this, arguments); });
             nodes = layout(tree, dimensions, ordinal);
@@ -214,6 +225,7 @@ var chartY = 50;
         }
 
         function updateRibbons() {
+
           ribbon = g.select(".ribbon").selectAll("path")
               .data(nodes, function(d) { return d.path; });
           ribbon.enter().append("path")
@@ -353,6 +365,7 @@ var chartY = 50;
           category.transition().duration(duration)
               .attr("transform", function(d) { return "translate(" + d.x + ")"; })
               .tween("ribbon", ribbonTweenX);
+        
 
           categoryEnter.append("rect")
               .attr("width", function(d) {  return d.dx; })
@@ -365,8 +378,9 @@ var chartY = 50;
 
           categoryEnter.append("line")
               .style("stroke-width", function(d, i) { 
-                if (d.name.match(/^(suspicious|fraud|normal)$/)) {
-                /*if(d.name == "suspicious"){*/
+                //create taller bars for first category
+
+                if (d.name.match(topCategories)) {
                   return 35; 
                 }else{
                   return catBarHeight;

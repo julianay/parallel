@@ -2,8 +2,8 @@
 /* yellow */
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 200;
-  letter-spacing: -0.1px;
+  font-weight: 300;
+  letter-spacing: 1px;
   font-size: 10px;
   color: #aaa;
   width: 960px;
@@ -14,9 +14,9 @@ body {
 }
 
 h1 {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 200;
-  letter-spacing: 1.3px;
+  letter-spacing: 0.4px;
   font-size: 30px;
   margin-top: 40px;
   color: #aaa;

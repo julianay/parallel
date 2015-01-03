@@ -18,7 +18,7 @@ $category:
  }
 
   @mixin font-style-light{
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 200;
  }
 
@@ -31,8 +31,8 @@ $category:
  }
 
 body {
-  @include font-style-light;
-  letter-spacing: -0.1px;
+  @include font-style;
+  letter-spacing: 1px;
   font-size: 10px;
   color: $textColor;
   width: 960px;
@@ -44,7 +44,7 @@ body {
 
 h1 {
   @include font-style-light;
-  letter-spacing: 1.3px;
+  letter-spacing: 0.4px;
   font-size: 30px;
   margin-top: 40px;
   color: $textColor;
