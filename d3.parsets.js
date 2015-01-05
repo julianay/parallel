@@ -4,7 +4,8 @@ var catBarHeight = 23;
 var textRotation = 0;
 var tx = 10;
 var ty = 10;
-var ribbonClicked = false;
+var parsetClicked = [];
+var clicked = false;
 var clickedNode = null;
 var chartWidth = 960;
 var chartHeight = 600;
@@ -39,7 +40,6 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
             nodes,
             total,
             ribbon;
-
 
         d3.select(window).on("mousemove.parsets." + ++parsetsId, unhighlight); 
 
@@ -122,7 +122,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           var dEnter = dimension.enter().append("g")
               .attr("class", "dimension")
               .attr("transform", function(d) { return "translate(0," + d.y + ")"; })
-              .on("mousedown.parsets", cancelEvent);
+              //.on("mousedown.parsets", cancelEvent);
           dimension.each(function(d) {
                 d.y0 = d.y;
                 d.categories.forEach(function(d) { d.x0 = d.x; });
@@ -142,12 +142,12 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .attr("class", "sort alpha")
               .attr("dx", "2em")
               //.text("alpha »")
-              .on("mousedown.parsets", cancelEvent);
+              //.on("mousedown.parsets", cancelEvent);
           textEnter.append("tspan")
               .attr("class", "sort size")
               .attr("dx", "2em")
               //.text("size »")
-              .on("mousedown.parsets", cancelEvent); 
+              //.on("mousedown.parsets", cancelEvent); 
           dimension
               .call(d3.behavior.drag()
                 .origin(identity)
@@ -207,7 +207,6 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           updateCategories(dimension);
           updateRibbons();
           
-          //sortBy("alpha", function(a, b) { console.log("a " + a.name); return a.name < b.name ? -1 : 1; }, dimension);
           //sort younger to older age
           sortBy("alpha", function(a, b) { return a.name < b.name ? -1 : 1; }, dimension);
           
@@ -303,9 +302,33 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Unhighlight all nodes.
         function unhighlight() {
+          //if(parsetClicked) return;
           if (dragging) return;
           ribbon.classed("active", false);
           hideTooltip();
+          //remove null and create loop that only highlights stuff that has been clicked and exists in array
+          //parsetClicked.forEach(function(d){console.log("parset is: " + d.name)})
+          //console.log("parset is: " + parsetClicked[0].name);
+          
+          //if(typeof parsetClicked !== undefined && parsetClicked.length !== null){
+          if(parsetClicked.length > 0){	
+          	console.log("test new " + parsetClicked);
+          	
+          	for (var i = 0; i < parsetClicked.length; i++){
+          		//console.log("parset is: " + parsetClicked[i].name);
+          		highlight(parsetClicked[i]);
+          	}
+          	
+          }
+          /*
+          if(parsetClicked == null){
+        		console.log("is null");
+        	}else{
+        		console.log("parset is: " + parsetClicked.name);
+        		//console.log();
+        		highlight(parsetClicked);
+        	}
+        	*/
         }
 
         function updateCategories(g) {
@@ -323,8 +346,50 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                 showTooltip(categoryTooltip.call(this, d));
                 d3.event.stopPropagation();
               })
+
+              .on("mousedown.parsets", function(d) {
+               
+               	d.nodes.forEach(function(d) {
+               		console.log("highlight");
+               		ribbon.classed("active", false);
+               		highlight(d);
+               		//----- BUG IS HERE WITH THE FALSE/TRUE FOR CLICKED - CHECK IT
+               		//if(typeof parsetClicked !== undefined && parsetClicked !== null){
+               		if(parsetClicked.length > 0){
+               			for (var i = 0; i < parsetClicked.length; i++){
+               				console.log("inside for cliked on " + d.name);
+               				console.log("inside for parsetClicked " + parsetClicked[i].name);
+               				if(d.name == parsetClicked[i].name){
+               					console.log("found: " + d.name);
+               					clicked = true;
+               					if (i > -1) {
+               						console.log("splice: " + parsetClicked[i].name)
+               						//parsetClicked[i] = null;
+    								parsetClicked.splice(i, 1);
+								}
+               				}
+          				}
+          			if(clicked == false){
+          				console.log("push: " + d.name);
+          				parsetClicked.push(d); 
+          			}
+
+
+               		}else{
+               			console.log(" EMPTY push: " + d.name);
+               			parsetClicked.push(d); 
+               		}
+               		
+          			unhighlight();
+               		
+               	});
+               	showTooltip(categoryTooltip.call(this, d));
+                d3.event.stopPropagation();
+               //cancelEvent;
+              })
+
+
               .on("mouseout.parsets", unhighlight)
-              .on("mousedown.parsets", cancelEvent)
               .call(d3.behavior.drag()
                 .origin(identity)
                 .on("dragstart", function(d) {
@@ -623,6 +688,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
   }
 
   function cancelEvent() {
+  	console.log("cancel event");
     d3.event.stopPropagation();
     d3.event.preventDefault();
   }
