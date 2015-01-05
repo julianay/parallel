@@ -9,6 +9,7 @@ var clickedNode = null;
 var chartWidth = 960;
 var chartHeight = 600;
 var chartY = 50;
+var ageInfo;
 /* regex string to make top categories bars taller */
 var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supporting Actor)$/;
 
@@ -140,12 +141,12 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           textEnter.append("tspan")
               .attr("class", "sort alpha")
               .attr("dx", "2em")
-              .text("alpha »")
+              //.text("alpha »")
               .on("mousedown.parsets", cancelEvent);
           textEnter.append("tspan")
               .attr("class", "sort size")
               .attr("dx", "2em")
-              .text("size »")
+              //.text("size »")
               .on("mousedown.parsets", cancelEvent); 
           dimension
               .call(d3.behavior.drag()
@@ -158,7 +159,6 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                   d.y0 = d.y = d3.event.y;
                   for (var i = 1; i < dimensions.length; i++) {
                     if (height * dimensions[i].y < height * dimensions[i - 1].y) {
-                      dimensions.sort(compareY);
                       dimensionNames = dimensions.map(dimensionName);
                       ordinal.domain([]).range(d3.range(dimensions[0].categories.length));
                       nodes = layout(tree = buildTree({children: {}, count: 0}, data, dimensionNames, value_), dimensions, ordinal);
@@ -192,11 +192,9 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                       .tween("ribbon", ribbonTweenY);
                 }));
 
-          //dimension.on("load", sortBy("alpha", function(a, b) { return a.name < b.name ? 1 : -1; }, dimension)); 
-        
           dimension.select("text").select("tspan.sort.alpha")
               .on("click.parsets", sortBy("alpha", function(a, b) { return a.name < b.name ? 1 : -1; }, dimension));
-              
+          /*   
           dimension.select("text").select("tspan.sort.size")
               .on("click.parsets", sortBy("size", function(a, b) { return a.count - b.count; }, dimension));
               
@@ -204,24 +202,30 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .attr("transform", function(d) { return "translate(0," + d.y + ")"; })
               .tween("ribbon", ribbonTweenY);
           dimension.exit().remove();
+          */
           
-
           updateCategories(dimension);
           updateRibbons();
+          
+          //sortBy("alpha", function(a, b) { console.log("a " + a.name); return a.name < b.name ? -1 : 1; }, dimension);
+          //sort younger to older age
+          sortBy("alpha", function(a, b) { return a.name < b.name ? -1 : 1; }, dimension);
+          
         }
 
         function sortBy(type, f, dimension) {
-          console.log("sort by out " + type);
-          return function(d) {
-            var direction = this.__direction = -(this.__direction || 1);
-            
-            d3.select(this).text(direction > 0 ? type + " »" : "« " + type);
+         dimension.each(function(d) { if(d.name == "age"){  ageInfo = d; } });
+         // return function(d) {
+            d = ageInfo;
+            console.log("sort by in " + d.name);
+            var direction = this.__direction = -(this.__direction || 1); 
+            //d3.select(this).text(direction > 0 ? type + " »" : "« " + type); 
             d.categories.sort(function() { return direction * f.apply(this, arguments); });
             nodes = layout(tree, dimensions, ordinal);
             updateCategories(dimension);
             updateRibbons();
-            event.sortCategories();
-          };
+            //event.sortCategories();
+        //  };
         }
 
         function updateRibbons() {
