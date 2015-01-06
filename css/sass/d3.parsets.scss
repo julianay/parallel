@@ -146,7 +146,7 @@ $bars: 9;
 
 .tooltip {
   @include font-style;
-  font-size: 10px;
+  font-size: 11px;
   color:$textColor;
   background-color: rgba(40, 40, 40, 0.9);
   position: absolute;

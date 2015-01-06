@@ -8,7 +8,7 @@ var parsetClicked = [];
 var isSelected = false;
 var clickedNode = null;
 var chartWidth = 960;
-var chartHeight = 600;
+var chartHeight = 500;
 var chartY = 50;
 var ageInfo;
 /* regex string to make top categories bars taller */
@@ -526,8 +526,10 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       var m = d3.mouse(body.node());
       tooltip
           .style("display", null)
-          .style("left", m[0] + 30 + "px")
-          .style("top", m[1] - 20 + "px")
+          .style("left", m[0] + 10 + "px")
+          .style("top", m[1] + 50 + "px")
+          //.style("left", m[0] - 20 + "px")
+          //.style("top", 560 + "px")
           .html(html);
     }
 

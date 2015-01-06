@@ -17,7 +17,7 @@
 	var padding_width = 200;
 	var padding_height = 200;
 	var chart = d3.parsets()
-    .dimensions(["award", "winner", "age"]);
+    .dimensions(["category", "award", "age"]);
 
 	var vis = d3.select("#vis").append("svg")
     .attr("width", (chart.width() + padding_width))
