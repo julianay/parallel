@@ -1,5 +1,7 @@
-$textColor: #aaa; /* dark grey */
-$category0: #ff00ff;
+$textColor: #bbb; /* dark grey */
+//$textColorLight: #ccc; /* dark grey */
+$textColorCategory: #fff; /* dark grey */
+$category0: #784184;
 $category: 
 #be5021, /* orange */
 #9b0e0d, /* red */
@@ -26,7 +28,7 @@ $category:
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   letter-spacing: 0.1px;
-  fill: #fff;
+  fill: $textColorCategory;
   font-size:14px;
  }
 
@@ -50,15 +52,15 @@ h1 {
   color: $textColor;
   text-transform: uppercase;
 }
-h2 {
-  letter-spacing: -0.8px;
-  font-size: 21px;
-  margin-top: 10px;
-  color: #fff;
+
+.name{
+  fill: $textColor;
+  text-transform: uppercase;
 }
+
 p.meta, p.footer {
   font-size: 10px;
-  color: #fff;
+  color: $textColor;
 }
 p.meta {
   text-align: center;
@@ -145,8 +147,7 @@ $bars: 9;
 .tooltip {
   @include font-style;
   font-size: 10px;
-  /*color: lighten($textColor, 40%);*/
-  color:#fff;
+  color:$textColor;
   background-color: rgba(40, 40, 40, 0.9);
   position: absolute;
   padding: 10px;

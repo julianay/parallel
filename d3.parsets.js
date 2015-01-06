@@ -307,13 +307,9 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           hideTooltip();
           
           if(parsetClicked.length > 0){	
-          	//console.log("test new " + parsetClicked);
-          	
           	for (var i = 0; i < parsetClicked.length; i++){
-          		//console.log("parset is: " + parsetClicked[i].name);
           		highlight(parsetClicked[i]);
-          	}
-          	
+          	}	
           }
         }
 
@@ -336,17 +332,13 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .on("mousedown.parsets", function(d) {
                
                	d.nodes.forEach(function(d) {
-               		//console.log("highlight");
                		isSelected = false;
                		ribbon.classed("active", false);
                		highlight(d);
                
                		if(parsetClicked.length > 0){
                			for (var i = 0; i < parsetClicked.length; i++){
-               				//console.log("inside for cliked on " + d.name);
-               				//console.log("inside for parsetClicked " + parsetClicked[i].name);
                				if(d.name == parsetClicked[i].name){
-               					//console.log("found: " + d.name);
                					//is this parset selected (found in the select list?) if found, isSelected = true
                					isSelected = true;
                					if (i > -1) {
@@ -356,21 +348,17 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           				}
           			//has this parset been selected before? if it's not, add this parset
           			if(isSelected == false){
-          				//console.log("push: " + d.name);
           				parsetClicked.push(d); 
           			}
           			// is parsetClicked empty? push
                		}else{
-               			//console.log(" EMPTY push: " + d.name);
                			parsetClicked.push(d); 
                		}
-               		
           			unhighlight();
-               		
                	});
                	showTooltip(categoryTooltip.call(this, d));
                 d3.event.stopPropagation();
-               //cancelEvent;
+                cancelEvent;
               })
 
 
@@ -706,7 +694,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
     };
   }
 
-  var percent = d3.format("%"),
+  var percent = d3.format(".1%"),
       comma = d3.format(",f"),
       parsetsEase = "elastic",
       parsetsId = 0;
