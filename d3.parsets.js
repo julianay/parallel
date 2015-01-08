@@ -249,7 +249,13 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                 highlight(d = d.node, true);
                 showTooltip(tooltip_.call(this, d));
                 d3.event.stopPropagation();
-              });
+              })
+              .on("mousedown.parsets", function(d) {
+                console.log("d " + d.name);
+                //d.nodes.forEach(function(d) {
+                ribbonSelected2(d, ribbon);
+            //})
+          });
           mouse
               .sort(function(a, b) { return b.count - a.count; })
               .attr("d", ribbonPathStatic);
@@ -313,6 +319,77 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           }
         }
 
+        // Unhighlight all nodes.
+        function unhighlight2() {
+          if (dragging) return;
+          ribbon.classed("active", false);
+          hideTooltip();
+          
+          if(parsetClicked.length > 0){ 
+            for (var i = 0; i < parsetClicked.length; i++){
+              highlight(parsetClicked[i], true);
+            } 
+          }
+        }
+
+    function ribbonSelected(d, r){
+      //console.log("r:" + r);
+      isSelected = false;
+      ribbon = r;
+      ribbon.classed("active", false);
+      highlight(d);
+   
+      if(parsetClicked.length > 0){
+        for (var i = 0; i < parsetClicked.length; i++){
+          if(d.name == parsetClicked[i].name){
+            //is this parset selected (found in the select list?) if found, isSelected = true
+            isSelected = true;
+            if (i > -1) {
+              parsetClicked.splice(i, 1);
+            }
+          }
+        }
+      //has this parset been selected before? if it's not, add this parset
+      if(isSelected == false){
+        parsetClicked.push(d); 
+      }
+      // is parsetClicked empty? push
+      }else{
+        parsetClicked.push(d); 
+      }
+      unhighlight();
+    };
+
+    function ribbonSelected2(d, r){
+      //console.log("r:" + r);
+      isSelected = false;
+      ribbon = r;
+      ribbon.classed("active", false);
+      highlight(d = d.node, true);
+      //console.log("--- " + ribbon);
+      if(parsetClicked.length > 0){
+        for (var i = 0; i < parsetClicked.length; i++){
+
+          if(d.name == parsetClicked[i].name){
+            //is this parset selected (found in the select list?) if found, isSelected = true
+            isSelected = true;
+            if (i > -1) {
+              parsetClicked.splice(i, 1);
+            }
+          }
+        }
+      //has this parset been selected before? if it's not, add this parset
+      if(isSelected == false){
+        parsetClicked.push(d); 
+      }
+      // is parsetClicked empty? push
+      }else{
+        parsetClicked.push(d); 
+      }
+      unhighlight2();
+    }
+
+
         function updateCategories(g) {
           var category = g.selectAll("g.category")
               .data(function(d) { return d.categories; }, function(d) { return d.name; });
@@ -330,8 +407,9 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               })
 
               .on("mousedown.parsets", function(d) {
-               
                	d.nodes.forEach(function(d) {
+                  ribbonSelected(d, ribbon);
+                  /*
                		isSelected = false;
                		ribbon.classed("active", false);
                		highlight(d);
@@ -355,6 +433,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                			parsetClicked.push(d); 
                		}
           			unhighlight();
+                */
                	});
                	showTooltip(categoryTooltip.call(this, d));
                 d3.event.stopPropagation();
