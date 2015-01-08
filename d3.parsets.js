@@ -247,11 +247,12 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                 ribbon.classed("active", false);
                 if (dragging) return;
                 highlight(d = d.node, true);
+                //console.log("mousemove " + d.name);
                 showTooltip(tooltip_.call(this, d));
                 d3.event.stopPropagation();
               })
               .on("mousedown.parsets", function(d) {
-                console.log("d " + d.name);
+                //console.log("mousedown " + d.name);
                 //d.nodes.forEach(function(d) {
                 ribbonSelected2(d, ribbon);
             //})
@@ -291,6 +292,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Highlight a node and its descendants, and optionally its ancestors.
         function highlight(d, ancestors) {
+          //console.log("ancestors " + ancestors);
           if (dragging) return;
           var highlight = [];
           (function recurse(d) {
@@ -321,6 +323,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Unhighlight all nodes.
         function unhighlight2() {
+          console.log("unhighlight2");
           if (dragging) return;
           ribbon.classed("active", false);
           hideTooltip();
@@ -380,10 +383,15 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
         }
       //has this parset been selected before? if it's not, add this parset
       if(isSelected == false){
+        //------------------------------------------------------------------------------------------------------------------------------------
+        //recurse on push - get all d.parents in the array
+
         parsetClicked.push(d); 
       }
       // is parsetClicked empty? push
       }else{
+        //------------------------------------------------------------------------------------------------------------------------------------
+        //recurse on push - get all d.parents in the array
         parsetClicked.push(d); 
       }
       unhighlight2();
@@ -408,32 +416,9 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
               .on("mousedown.parsets", function(d) {
                	d.nodes.forEach(function(d) {
+                  //console.log("---- " + d.name);
                   ribbonSelected(d, ribbon);
-                  /*
-               		isSelected = false;
-               		ribbon.classed("active", false);
-               		highlight(d);
-               
-               		if(parsetClicked.length > 0){
-               			for (var i = 0; i < parsetClicked.length; i++){
-               				if(d.name == parsetClicked[i].name){
-               					//is this parset selected (found in the select list?) if found, isSelected = true
-               					isSelected = true;
-               					if (i > -1) {
-    								parsetClicked.splice(i, 1);
-								}
-               				}
-          				}
-          			//has this parset been selected before? if it's not, add this parset
-          			if(isSelected == false){
-          				parsetClicked.push(d); 
-          			}
-          			// is parsetClicked empty? push
-               		}else{
-               			parsetClicked.push(d); 
-               		}
-          			unhighlight();
-                */
+
                	});
                	showTooltip(categoryTooltip.call(this, d));
                 d3.event.stopPropagation();
