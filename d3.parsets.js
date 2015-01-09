@@ -359,6 +359,8 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       // is parsetClicked empty? push
       }else{
         parsetClicked.push(d); 
+        console.log("d " + d.name);
+        console.log("d parent " + d.parent.name);
       }
       unhighlight();
     };
@@ -387,12 +389,16 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
         //recurse on push - get all d.parents in the array
 
         parsetClicked.push(d); 
+        console.log("d " + d.name);
+        console.log("d parent " + d.parent.name);
       }
       // is parsetClicked empty? push
       }else{
         //------------------------------------------------------------------------------------------------------------------------------------
         //recurse on push - get all d.parents in the array
         parsetClicked.push(d); 
+        console.log("d " + d.name);
+        console.log("d parent " + d.parent.name);
       }
       unhighlight2();
     }
