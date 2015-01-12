@@ -244,19 +244,23 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .data(nodes, function(d) { return d.path; });
           mouse.enter().append("path")
               .on("mousemove.parsets", function(d) {
-                ribbon.classed("active", false);
+                //ribbon.classed("active", false);
                 if (dragging) return;
-                highlight(d = d.node, true);
+                //highlight(d = d.node, true); /*------- off just for testing */
                 //console.log("mousemove " + d.name);
                 showTooltip(tooltip_.call(this, d));
                 d3.event.stopPropagation();
               })
               .on("mousedown.parsets", function(d) {
                 //console.log("mousedown " + d.name);
+                //d = d.nodes;
                 //d.nodes.forEach(function(d) {
-                ribbonSelected2(d, ribbon);
-            //})
-          });
+                  if (dragging) return;
+                  //highlight(d = d.node, true);
+                  ribbonSelected2(d, ribbon);
+                  //d3.event.stopPropagation();
+                //})
+              });
           mouse
               .sort(function(a, b) { return b.count - a.count; })
               .attr("d", ribbonPathStatic);
@@ -292,16 +296,25 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Highlight a node and its descendants, and optionally its ancestors.
         function highlight(d, ancestors) {
+          console.log("highlight -------------------------------")
+          //------- problem: not sure if the ancestor node gets highlighted, even though it's there
+          //------- don't know how to test if the tree is being traversed up
+          //------- in highlight hover, the tree does get traversed up - why it doesn't on the click?
           //console.log("ancestors " + ancestors);
           if (dragging) return;
           var highlight = [];
           (function recurse(d) {
+            //console.log("1 - high d " + d.name);
+            //console.log("high d parent " + d.parent.name);
             highlight.push(d);
             for (var k in d.children) recurse(d.children[k]);
           })(d);
           highlight.shift();
           if (ancestors) while (d) highlight.push(d), d = d.parent;
+          //console.log("highlight " + highlight);
           ribbon.filter(function(d) {
+            //console.log("ribbon------------------")
+            //console.log("2 - high d " + d.name);
             var active = highlight.indexOf(d.node) >= 0;
             if (active) this.parentNode.appendChild(this);
             return active;
@@ -316,6 +329,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           
           if(parsetClicked.length > 0){	
           	for (var i = 0; i < parsetClicked.length; i++){
+              //console.log("h on unhighlight");
           		highlight(parsetClicked[i]);
           	}	
           }
@@ -330,6 +344,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           
           if(parsetClicked.length > 0){ 
             for (var i = 0; i < parsetClicked.length; i++){
+              //parsetClicked[i] = parsetClicked[i].node;
               highlight(parsetClicked[i], true);
             } 
           }
@@ -359,8 +374,8 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       // is parsetClicked empty? push
       }else{
         parsetClicked.push(d); 
-        console.log("d " + d.name);
-        console.log("d parent " + d.parent.name);
+        //console.log("d " + d.name);
+        //console.log("d parent " + d.parent.name);
       }
       unhighlight();
     };
@@ -369,7 +384,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       //console.log("r:" + r);
       isSelected = false;
       ribbon = r;
-      ribbon.classed("active", false);
+      //ribbon.classed("active", false);
       highlight(d = d.node, true);
       //console.log("--- " + ribbon);
       if(parsetClicked.length > 0){
@@ -389,16 +404,16 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
         //recurse on push - get all d.parents in the array
 
         parsetClicked.push(d); 
-        console.log("d " + d.name);
-        console.log("d parent " + d.parent.name);
+        //console.log("d " + d.name);
+        //console.log("d parent " + d.parent.name);
       }
       // is parsetClicked empty? push
       }else{
         //------------------------------------------------------------------------------------------------------------------------------------
         //recurse on push - get all d.parents in the array
         parsetClicked.push(d); 
-        console.log("d " + d.name);
-        console.log("d parent " + d.parent.name);
+        //console.log("d " + d.name);
+        //console.log("d parent " + d.parent.name);
       }
       unhighlight2();
     }
