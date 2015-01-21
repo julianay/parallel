@@ -193,7 +193,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                 }));
 
           dimension.select("text").select("tspan.sort.alpha")
-              .on("click.parsets", sortBy("alpha", function(a, b) { return a.name < b.name ? 1 : -1; }, dimension));
+              .on("click.parsets", sortBy("alpha", function(a, b) { console.log("click ****"); return a.name < b.name ? 1 : -1; }, dimension));
           /*   
           dimension.select("text").select("tspan.sort.size")
               .on("click.parsets", sortBy("size", function(a, b) { return a.count - b.count; }, dimension));
@@ -246,7 +246,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .on("mousemove.parsets", function(d) {
                 //ribbon.classed("active", false);
                 if (dragging) return;
-                //highlight(d = d.node, true); /*------- off just for testing */
+                highlight(d = d.node, true); /*----------------------------------- off just for testing */
                 //console.log("mousemove " + d.name);
                 showTooltip(tooltip_.call(this, d));
                 d3.event.stopPropagation();
@@ -296,7 +296,9 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Highlight a node and its descendants, and optionally its ancestors.
         function highlight(d, ancestors) {
-          console.log("highlight -------------------------------")
+          console.log("highlight -------------------------------");
+          console.log("child " + d.name);
+          console.log("parent " + d.parent.name);
           //------- problem: not sure if the ancestor node gets highlighted, even though it's there
           //------- don't know how to test if the tree is being traversed up
           //------- in highlight hover, the tree does get traversed up - why it doesn't on the click?
@@ -304,8 +306,6 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           if (dragging) return;
           var highlight = [];
           (function recurse(d) {
-            //console.log("1 - high d " + d.name);
-            //console.log("high d parent " + d.parent.name);
             highlight.push(d);
             for (var k in d.children) recurse(d.children[k]);
           })(d);
@@ -316,6 +316,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
             //console.log("ribbon------------------")
             //console.log("2 - high d " + d.name);
             var active = highlight.indexOf(d.node) >= 0;
+            //console.log("recurse " + d.node.name);
             if (active) this.parentNode.appendChild(this);
             return active;
           }).classed("active", true);
@@ -323,6 +324,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Unhighlight all nodes.
         function unhighlight() {
+          console.log("--------------------------------unhighlight -------------------------------");
           if (dragging) return;
           ribbon.classed("active", false);
           hideTooltip();
@@ -330,6 +332,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           if(parsetClicked.length > 0){	
           	for (var i = 0; i < parsetClicked.length; i++){
               //console.log("h on unhighlight");
+              console.log("highlight " + i + " " + parsetClicked[i].name);
           		highlight(parsetClicked[i]);
           	}	
           }
