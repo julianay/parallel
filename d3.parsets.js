@@ -193,7 +193,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                 }));
 
           dimension.select("text").select("tspan.sort.alpha")
-              .on("click.parsets", sortBy("alpha", function(a, b) { console.log("click ****"); return a.name < b.name ? 1 : -1; }, dimension));
+              .on("click.parsets", sortBy("alpha", function(a, b) { return a.name < b.name ? 1 : -1; }, dimension));
           /*   
           dimension.select("text").select("tspan.sort.size")
               .on("click.parsets", sortBy("size", function(a, b) { return a.count - b.count; }, dimension));
@@ -252,6 +252,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                 d3.event.stopPropagation();
               })
               .on("mousedown.parsets", function(d) {
+                console.log("click ********************************************************");
                 //console.log("mousedown " + d.name);
                 //d = d.nodes;
                 //d.nodes.forEach(function(d) {
@@ -347,6 +348,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           
           if(parsetClicked.length > 0){ 
             for (var i = 0; i < parsetClicked.length; i++){
+              console.log("highlight " + i + " " + parsetClicked[i].name);
               //parsetClicked[i] = parsetClicked[i].node;
               highlight(parsetClicked[i], true);
             } 
@@ -387,8 +389,9 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       //console.log("r:" + r);
       isSelected = false;
       ribbon = r;
-      //ribbon.classed("active", false);
-      highlight(d = d.node, true);
+      ribbon.classed("active", false);
+      //highlight(d = d.node, true);
+      highlight(d);
       //console.log("--- " + ribbon);
       if(parsetClicked.length > 0){
         for (var i = 0; i < parsetClicked.length; i++){
