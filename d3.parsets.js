@@ -216,7 +216,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
          dimension.each(function(d) { if(d.name == "age"){  ageInfo = d; } });
          // return function(d) {
             d = ageInfo;
-            console.log("sort by in " + d.name);
+            //console.log("sort by in " + d.name);
             var direction = this.__direction = -(this.__direction || 1); 
             //d3.select(this).text(direction > 0 ? type + " »" : "« " + type); 
             d.categories.sort(function() { return direction * f.apply(this, arguments); });
@@ -252,14 +252,12 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
                 d3.event.stopPropagation();
               })
               .on("mousedown.parsets", function(d) {
-                console.log("click ********************************************************");
-                //console.log("mousedown " + d.name);
-                //d = d.nodes;
+                console.log("ribbon " + d.name);
                 //d.nodes.forEach(function(d) {
                   if (dragging) return;
-                  //highlight(d = d.node, true);
                   ribbonSelected2(d, ribbon);
-                  //d3.event.stopPropagation();
+                  d3.event.stopPropagation();
+                  cancelEvent;
                 //})
               });
           mouse
@@ -297,13 +295,6 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Highlight a node and its descendants, and optionally its ancestors.
         function highlight(d, ancestors) {
-          console.log("highlight -------------------------------");
-          console.log("child " + d.name);
-          console.log("parent " + d.parent.name);
-          //------- problem: not sure if the ancestor node gets highlighted, even though it's there
-          //------- don't know how to test if the tree is being traversed up
-          //------- in highlight hover, the tree does get traversed up - why it doesn't on the click?
-          //console.log("ancestors " + ancestors);
           if (dragging) return;
           var highlight = [];
           (function recurse(d) {
@@ -312,12 +303,8 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           })(d);
           highlight.shift();
           if (ancestors) while (d) highlight.push(d), d = d.parent;
-          //console.log("highlight " + highlight);
           ribbon.filter(function(d) {
-            //console.log("ribbon------------------")
-            //console.log("2 - high d " + d.name);
             var active = highlight.indexOf(d.node) >= 0;
-            //console.log("recurse " + d.node.name);
             if (active) this.parentNode.appendChild(this);
             return active;
           }).classed("active", true);
@@ -325,7 +312,6 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Unhighlight all nodes.
         function unhighlight() {
-          console.log("--------------------------------unhighlight -------------------------------");
           if (dragging) return;
           ribbon.classed("active", false);
           hideTooltip();
@@ -333,7 +319,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           if(parsetClicked.length > 0){	
           	for (var i = 0; i < parsetClicked.length; i++){
               //console.log("h on unhighlight");
-              console.log("highlight " + i + " " + parsetClicked[i].name);
+              //console.log("highlight " + i + " " + parsetClicked[i].name);
           		highlight(parsetClicked[i]);
           	}	
           }
@@ -341,7 +327,6 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Unhighlight all nodes.
         function unhighlight2() {
-          console.log("unhighlight2");
           if (dragging) return;
           ribbon.classed("active", false);
           hideTooltip();
@@ -350,7 +335,9 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
             for (var i = 0; i < parsetClicked.length; i++){
               console.log("highlight " + i + " " + parsetClicked[i].name);
               //parsetClicked[i] = parsetClicked[i].node;
-              highlight(parsetClicked[i], true);
+              //highlight(d = d.node, true);
+              highlight(parsetClicked[i].node, true);
+              //highlight(parsetClicked[i], true);
             } 
           }
         }
@@ -442,8 +429,10 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               })
 
               .on("mousedown.parsets", function(d) {
+              	//console.log("cat " + d.nodes.length);
+              	//console.log("---- " + d.nodes[0].name);
                	d.nodes.forEach(function(d) {
-                  //console.log("---- " + d.name);
+      
                   ribbonSelected(d, ribbon);
 
                	});
