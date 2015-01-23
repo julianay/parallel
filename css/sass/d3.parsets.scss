@@ -1,18 +1,34 @@
-$textColor: #bbb; /* dark grey */
-//$textColorLight: #ccc; /* dark grey */
-$textColorCategory: #fff; /* dark grey */
+$bkgColor: #333;
+$textColor: #bbb;
+$textColorCategory: #fff;
+/*
 $category0: #784184;
 $category: 
-#be5021, /* orange */
-#9b0e0d, /* red */
-#40709c, /* blue */
-#ea9290, /* pink */
-#784184, /* purple */
-#841a19, /* burgundy */
-#a0c83c, /* green */
-#78b3b2, /* light blue */
-#b2aa9b, /* grey */
-#eebb2c; /* yellow */
+#be5021, // orange
+#9b0e0d, // red
+#40709c, // blue
+#ea9290, // pink
+#784184, // purple
+#841a19, // burgundy
+#a0c83c, // green
+#78b3b2, // light blue
+#b2aa9b, // grey
+#eebb2c; // yellow
+*/
+
+$category0: #784184;
+$category: 
+#be5021, // orange
+#9b0e0d, // red
+#40709c, // blue
+#ea9290, // pink
+#784184, // purple
+#841a19, // burgundy
+#a0c83c, // green
+#78b3b2, // light blue
+#b2aa9b, // grey
+#eebb2c; // yellow
+
 
  @mixin font-style{
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -41,7 +57,7 @@ body {
   margin: 1em auto;
   position: relative;
   text-align: center;
-  background-color: #333;
+  background-color: $bkgColor;
 }
 
 h1 {
@@ -123,7 +139,7 @@ text.text-0 {
 
 .ribbon path {
   stroke-opacity: 0;
-  fill-opacity: .2;
+  fill-opacity: .1;
 }
 
 .ribbon path.active {

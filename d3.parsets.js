@@ -246,13 +246,11 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .on("mousemove.parsets", function(d) {
                 ribbon.classed("active", false);
                 if (dragging) return;
-                highlight(d = d.node, true); /*----------------------------------- off just for testing */
-                console.log("mousemove " + d.name);
+                highlight(d = d.node, true);
                 showTooltip(tooltip_.call(this, d));
                 d3.event.stopPropagation();
               })
               .on("mousedown.parsets", function(d) {
-                console.log("ribbon " + d.name);
                 //d.nodes.forEach(function(d) {
                   if (dragging) return;
                   ribbonSelected2(d, ribbon);
@@ -295,7 +293,6 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Highlight a node and its descendants, and optionally its ancestors.
         function highlight(d, ancestors) {
-          console.log("highlight " + d.name + " " + ancestors);
           if (dragging) return;
           var highlight = [];
           (function recurse(d) {
@@ -319,8 +316,6 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           
           if(parsetClicked.length > 0){	
           	for (var i = 0; i < parsetClicked.length; i++){
-              //console.log("h on unhighlight");
-              //console.log("highlight " + i + " " + parsetClicked[i].name);
           		highlight(parsetClicked[i], true);
           	}	
           }
@@ -334,17 +329,12 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           
           if(parsetClicked.length > 0){ 
             for (var i = 0; i < parsetClicked.length; i++){
-              
-              //parsetClicked[i] = parsetClicked[i].parent;
-              //highlight(d = d.node, true);
               highlight(parsetClicked[i], true);
-              //highlight(parsetClicked[i], true);
             } 
           }
         }
 
     function ribbonSelected(d, r){
-      //console.log("r:" + r);
       isSelected = false;
       ribbon = r;
       ribbon.classed("active", false);
@@ -367,24 +357,24 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       // is parsetClicked empty? push
       }else{
         parsetClicked.push(d); 
-        //console.log("d " + d.name);
-        //console.log("d parent " + d.parent.name);
       }
       unhighlight();
     };
 
     function ribbonSelected2(d, r){
-      //console.log("r:" + r);
       isSelected = false;
       ribbon = r;
       ribbon.classed("active", false);
-      //highlight(d = d.node, true);
-      highlight(d, true); /***************** FIXED PARTIAL ******/
-      //console.log("--- " + ribbon);
+      
+      highlight(d, true); 
+     
       if(parsetClicked.length > 0){
         for (var i = 0; i < parsetClicked.length; i++){
+          //nodes have the same names so to compare i need to combine with other categories (parent nodes, ex, nominee + best actor)
+          var dName = d.name + d.parent.name + d.parent.parent.name; 
+          var parsetName = parsetClicked[i].name + parsetClicked[i].parent.name + parsetClicked[i].parent.parent.name;
 
-          if(d.name == parsetClicked[i] .name){
+          if(dName == parsetName){
             //is this parset selected (found in the select list?) if found, isSelected = true
             isSelected = true;
             if (i > -1) {
@@ -394,20 +384,13 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
         }
       //has this parset been selected before? if it's not, add this parset
       if(isSelected == false){
-        //------------------------------------------------------------------------------------------------------------------------------------
         //recurse on push - get all d.parents in the array
-
         parsetClicked.push(d); 
-        //console.log("d " + d.name);
-        //console.log("d parent " + d.parent.name);
       }
       // is parsetClicked empty? push
       }else{
-        //------------------------------------------------------------------------------------------------------------------------------------
         //recurse on push - get all d.parents in the array
         parsetClicked.push(d); 
-        //console.log("d " + d.name);
-        //console.log("d parent " + d.parent.name);
       }
       unhighlight2();
     }
@@ -430,18 +413,13 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               })
 
               .on("mousedown.parsets", function(d) {
-              	//console.log("cat " + d.nodes.length);
-              	//console.log("---- " + d.nodes[0].name);
                	d.nodes.forEach(function(d) {
-      
                   ribbonSelected(d, ribbon);
-
                	});
                	showTooltip(categoryTooltip.call(this, d));
                 d3.event.stopPropagation();
                 cancelEvent;
               })
-
 
               .on("mouseout.parsets", unhighlight)
               .call(d3.behavior.drag()
