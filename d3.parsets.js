@@ -244,10 +244,10 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .data(nodes, function(d) { return d.path; });
           mouse.enter().append("path")
               .on("mousemove.parsets", function(d) {
-                //ribbon.classed("active", false);
+                ribbon.classed("active", false);
                 if (dragging) return;
                 highlight(d = d.node, true); /*----------------------------------- off just for testing */
-                //console.log("mousemove " + d.name);
+                console.log("mousemove " + d.name);
                 showTooltip(tooltip_.call(this, d));
                 d3.event.stopPropagation();
               })
@@ -295,6 +295,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Highlight a node and its descendants, and optionally its ancestors.
         function highlight(d, ancestors) {
+          console.log("highlight " + d.name + " " + ancestors);
           if (dragging) return;
           var highlight = [];
           (function recurse(d) {
@@ -320,7 +321,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           	for (var i = 0; i < parsetClicked.length; i++){
               //console.log("h on unhighlight");
               //console.log("highlight " + i + " " + parsetClicked[i].name);
-          		highlight(parsetClicked[i]);
+          		highlight(parsetClicked[i], true);
           	}	
           }
         }
@@ -333,10 +334,10 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           
           if(parsetClicked.length > 0){ 
             for (var i = 0; i < parsetClicked.length; i++){
-              console.log("highlight " + i + " " + parsetClicked[i].name);
-              //parsetClicked[i] = parsetClicked[i].node;
+              
+              //parsetClicked[i] = parsetClicked[i].parent;
               //highlight(d = d.node, true);
-              highlight(parsetClicked[i].node, true);
+              highlight(parsetClicked[i], true);
               //highlight(parsetClicked[i], true);
             } 
           }
@@ -347,7 +348,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       isSelected = false;
       ribbon = r;
       ribbon.classed("active", false);
-      highlight(d);
+      highlight(d, true);
    
       if(parsetClicked.length > 0){
         for (var i = 0; i < parsetClicked.length; i++){
@@ -378,12 +379,12 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       ribbon = r;
       ribbon.classed("active", false);
       //highlight(d = d.node, true);
-      highlight(d);
+      highlight(d, true); /***************** FIXED PARTIAL ******/
       //console.log("--- " + ribbon);
       if(parsetClicked.length > 0){
         for (var i = 0; i < parsetClicked.length; i++){
 
-          if(d.name == parsetClicked[i].name){
+          if(d.name == parsetClicked[i] .name){
             //is this parset selected (found in the select list?) if found, isSelected = true
             isSelected = true;
             if (i > -1) {
