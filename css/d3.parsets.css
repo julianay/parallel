@@ -207,6 +207,24 @@ text.text-3 {
   letter-spacing: 1px;
 }
 
+.description {
+  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+  font-size: 14px;
+  color: #bbb;
+  background-color: rgba(40, 40, 40, 0.9);
+  position: absolute;
+}
+
+.description2 {
+  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+  font-size: 14px;
+  color: #bbb;
+  background-color: rgba(40, 40, 40, 0.9);
+  position: absolute;
+}
+
 /*# sourceMappingURL=d3.parsets.css.map */
 
 /*# sourceMappingURL=d3.parsets.css.map */

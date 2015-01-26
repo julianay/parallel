@@ -8,9 +8,10 @@ var parsetClicked = [];
 var isSelected = false;
 var clickedNode = null;
 var chartWidth = 960;
-var chartHeight = 500;
+var chartHeight = 400;
 var chartY = 50;
 var ageInfo;
+var isDescription = false;
 /* regex string to make top categories bars taller */
 var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supporting Actor)$/;
 
@@ -253,7 +254,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .on("mousedown.parsets", function(d) {
                 //d.nodes.forEach(function(d) {
                   if (dragging) return;
-                  ribbonSelected2(d, ribbon);
+                  ribbonMultiSelect(d, ribbon);
                   d3.event.stopPropagation();
                   cancelEvent;
                 //})
@@ -323,6 +324,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
         // Unhighlight all nodes.
         function unhighlight2() {
+          //hideDescription();
           if (dragging) return;
           ribbon.classed("active", false);
           hideTooltip();
@@ -334,7 +336,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           }
         }
 
-    function ribbonSelected(d, r){
+    function ribbonCategorySelect(d, r){
       isSelected = false;
       ribbon = r;
       ribbon.classed("active", false);
@@ -361,7 +363,15 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       unhighlight();
     };
 
-    function ribbonSelected2(d, r){
+    function ribbonMultiSelect(d, r){
+      var descriptionText = defaultDescription(d);
+      if(isDescription){
+        showDescription2("<p>" + descriptionText + "<p>");
+        isDescription = false;
+      }else{
+        showDescription("<p>" + descriptionText + "<p>");
+        isDescription = true;
+      }
       isSelected = false;
       ribbon = r;
       ribbon.classed("active", false);
@@ -414,7 +424,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
 
               .on("mousedown.parsets", function(d) {
                	d.nodes.forEach(function(d) {
-                  ribbonSelected(d, ribbon);
+                  ribbonCategorySelect(d, ribbon);
                	});
                	showTooltip(categoryTooltip.call(this, d));
                 d3.event.stopPropagation();
@@ -573,7 +583,22 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
     var body = d3.select("body");
     var tooltip = body.append("div")
         .style("display", "none")
-        .attr("class", "parsets tooltip");
+        .attr("class", "parsets tooltip");  
+
+    var description = body.append("div")
+        //.style("display", "none")
+        .attr("class", "description")
+        .style("left", 0 + "px")
+        .style("top", 0 + "px")
+        .html("<p>test</p>");
+
+    var description2 = body.append("div")
+    //.style("display", "none")
+    .attr("class", "description2")
+    .style("left", 0 + "px")
+    .style("top", 35 + "px")
+    .html("<p>bla</p>");    
+
 
     return d3.rebind(parsets, event, "on").value(1).width(chartWidth).height(chartHeight);
 
@@ -590,6 +615,26 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
           //.style("left", m[0] - 20 + "px")
           //.style("top", 560 + "px")
           .html(html);
+    }
+
+    function showDescription(html){
+      description
+          .style("display", null)
+          .style("left", 0 + "px")
+          .style("top", 0 + "px")
+          .html(html);
+    }
+
+    function showDescription2(html){
+      description2
+          .style("display", null)
+          .style("left", 0 + "px")
+          .style("top", 35 + "px")
+          .html(html);
+    }
+
+    function hideDescription(){
+      description.style("display", "none");
     }
 
     function hideTooltip() {
@@ -808,6 +853,23 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       d = d.parent;
     }
     return path.join("<br> ▼ <br>") + "<br>" + comma(count) + " (" + percent(count / d.count) + ")";
+  }
+
+  function defaultDescription(d) {
+    var count = d.count,
+        path = [];
+    while (d.parent) {
+      if(d.dimension == "age"){
+        if (d.name) path.unshift(" btw ages " + d.name);
+        d = d.parent;
+      }else{
+        if (d.name) path.unshift(d.name + " ");
+        d = d.parent;
+      }
+    }
+    //return path.join(" ") + comma(count) + " (" + percent(count / d.count) + ")";
+    //return path.join(" ") + " (" + percent(count / d.count) + ")";
+    return path.join(" ") +": " +  "<strong>" + comma(count) + "</strong>" ;
   }
 
   function defaultCategoryTooltip(d) {

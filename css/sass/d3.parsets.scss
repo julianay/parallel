@@ -171,5 +171,20 @@ $bars: 9;
   letter-spacing: 1px;
 }
 
+.description {
+  @include font-style-light;
+  font-size: 14px;
+  color:$textColor;
+  background-color: rgba(40, 40, 40, 0.9);
+  position: absolute;
+}
+
+.description2 {
+  @include font-style-light;
+  font-size: 14px;
+  color:$textColor;
+  background-color: rgba(40, 40, 40, 0.9);
+  position: absolute;
+}
 
 /*# sourceMappingURL=d3.parsets.css.map */
