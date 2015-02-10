@@ -9,9 +9,11 @@ var isSelected = false;
 var clickedNode = null;
 var chartWidth = 960;
 var chartHeight = 400;
-var chartY = 50;
+var chartY = 120;
 var ageInfo;
 var isDescription = false;
+var descY = 60;
+var descY2 = 85;
 /* regex string to make top categories bars taller */
 var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supporting Actor)$/;
 
@@ -589,15 +591,15 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
         //.style("display", "none")
         .attr("class", "description")
         .style("left", 0 + "px")
-        .style("top", 0 + "px")
-        .html("<p>test</p>");
+        .style("top", descY + "px")
+        .html("<p>Click on ribbons to compare age ranges and awards:</p>");
 
     var description2 = body.append("div")
     //.style("display", "none")
     .attr("class", "description2")
     .style("left", 0 + "px")
-    .style("top", 35 + "px")
-    .html("<p>bla</p>");    
+    .style("top", descY2 + "px")
+    .html("<p></p>");    
 
 
     return d3.rebind(parsets, event, "on").value(1).width(chartWidth).height(chartHeight);
@@ -621,7 +623,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       description
           .style("display", null)
           .style("left", 0 + "px")
-          .style("top", 0 + "px")
+          .style("top", descY + "px")
           .html(html);
     }
 
@@ -629,7 +631,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
       description2
           .style("display", null)
           .style("left", 0 + "px")
-          .style("top", 35 + "px")
+          .style("top", descY2 + "px")
           .html(html);
     }
 
@@ -860,7 +862,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
         path = [];
     while (d.parent) {
       if(d.dimension == "age"){
-        if (d.name) path.unshift(" btw ages " + d.name);
+        if (d.name) path.unshift(" between ages " + d.name);
         d = d.parent;
       }else{
         if (d.name) path.unshift(d.name + " ");

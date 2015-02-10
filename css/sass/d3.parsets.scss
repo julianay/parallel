@@ -1,6 +1,7 @@
 $bkgColor: #333;
 $textColor: #bbb;
 $textColorCategory: #fff; 
+
 /*
 $category0: #784184;
 $category: 
@@ -173,17 +174,17 @@ $bars: 9;
 
 .description {
   @include font-style-light;
-  font-size: 14px;
+  font-size: 16px;
   color:$textColor;
-  background-color: rgba(40, 40, 40, 0.9);
+  /*background-color: rgba(40, 40, 40, 0.9);*/
   position: absolute;
 }
 
 .description2 {
   @include font-style-light;
-  font-size: 14px;
+  font-size: 16px;
   color:$textColor;
-  background-color: rgba(40, 40, 40, 0.9);
+  /*background-color: rgba(40, 40, 40, 0.9);*/
   position: absolute;
 }
 
