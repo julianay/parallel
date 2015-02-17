@@ -9,11 +9,12 @@ var isSelected = false;
 var clickedNode = null;
 var chartWidth = 900;
 var chartHeight = 500;
-var chartY = 120;
+var chartY = 90;
 var ageInfo;
 var isDescription = false;
-var descY = 60;
-var descY2 = 85;
+var descY = 40;
+var descY2 = 65;
+var barSpacing = 10;
 /* regex string to make top categories bars taller */
 var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supporting Actor)$/;
 
@@ -25,7 +26,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
         tooltip_ = defaultTooltip,
         categoryTooltip = defaultCategoryTooltip,
         value_,
-        spacing = 50,
+        spacing = barSpacing,
         width,
         height,
         tension = 0.5,
@@ -134,7 +135,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .attr("width", width)
               .attr("y", -25)
               .attr("height", 45);
-
+/*
           var textEnter = dEnter.append("text")
               .attr("class", "dimension")
               .attr("transform", "translate(0,-25)");
@@ -150,7 +151,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
               .attr("class", "sort size")
               .attr("dx", "2em")
               //.text("size »")
-              //.on("mousedown.parsets", cancelEvent); 
+              //.on("mousedown.parsets", cancelEvent); */
           dimension
               .call(d3.behavior.drag()
                 .origin(identity)

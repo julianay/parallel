@@ -28,54 +28,54 @@ $category:
 */
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:300,700);
 body {
-  font-family: 'Roboto Slab', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: 'Roboto Slab',"HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   letter-spacing: 0px;
   font-size: 10px;
-  color: #000;
+  color: #fff;
   width: 960px;
   margin: 1em auto;
   position: relative;
   text-align: center;
-  background-color: #fff;
+  background-color: #111;
 }
 
 h1 {
-  font-family: 'Roboto Slab', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: 'Roboto Slab',"HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   letter-spacing: -0.1px;
   font-size: 30px;
   margin-top: 40px;
   margin-left: -320px;
-  color: #000;
+  color: #fff;
   text-transform: uppercase;
 }
 
 .name {
-  fill: #000;
+  fill: #fff;
   text-transform: uppercase;
 }
 
 .dimension line {
-  stroke: rgba(0, 0, 0, 0.6);
+  stroke: rgba(60, 60, 60, 0.6);
   text-align: center;
 }
 
 .category {
   cursor: ew-resize;
-  fill: #999;
+  fill: #bbb;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1px;
 }
 
 line.category-0 {
-  stroke: #d3a52e;
+  stroke: #d3932e;
   stroke-width: 60px;
 }
 
 line.category-1 {
-  stroke: #7c654f;
+  stroke: #c05015;
 }
 
 line.category-2 {
@@ -83,39 +83,39 @@ line.category-2 {
 }
 
 line.category-3 {
-  stroke: #485f76;
+  stroke: #3d6f9d;
 }
 
 text.text-0 {
   font-family: 'Roboto Slab',"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
-  letter-spacing: -0.1px;
+  letter-spacing: -0.2px;
   fill: #fff;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 text.text-1 {
   font-family: 'Roboto Slab',"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
-  letter-spacing: -0.1px;
+  letter-spacing: -0.2px;
   fill: #fff;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 text.text-2 {
   font-family: 'Roboto Slab',"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
-  letter-spacing: -0.1px;
+  letter-spacing: -0.2px;
   fill: #fff;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 text.text-3 {
   font-family: 'Roboto Slab',"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
-  letter-spacing: -0.1px;
+  letter-spacing: -0.2px;
   fill: #fff;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .dimension rect {
@@ -141,7 +141,7 @@ text.text-3 {
 
 .ribbon path {
   stroke-opacity: 0;
-  fill-opacity: .2;
+  fill-opacity: .1;
 }
 
 .ribbon path.active {
@@ -153,13 +153,13 @@ text.text-3 {
 }
 
 .category-0 {
-  fill: #d3a52e;
-  stroke: #d3a52e;
+  fill: #d3932e;
+  stroke: #d3932e;
 }
 
 .category-1 {
-  fill: #7c654f;
-  stroke: #7c654f;
+  fill: #c05015;
+  stroke: #c05015;
 }
 
 .category-2 {
@@ -168,8 +168,8 @@ text.text-3 {
 }
 
 .category-3 {
-  fill: #485f76;
-  stroke: #485f76;
+  fill: #3d6f9d;
+  stroke: #3d6f9d;
 }
 
 .category-4 {
@@ -203,11 +203,11 @@ text.text-3 {
 }
 
 .tooltip {
-  font-family: 'Roboto Slab', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: 'Roboto Slab',"HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 12px;
-  color: #000;
-  background-color: rgba(240, 240, 240, 0.9);
+  color: #fff;
+  background-color: rgba(30, 30, 30, 0.9);
   position: absolute;
   padding: 10px;
   text-transform: uppercase;
@@ -218,9 +218,10 @@ text.text-3 {
   font-family: 'Roboto Slab',"HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 16px;
-  color: #000;
+  color: #fff;
   /*background-color: rgba(40, 40, 40, 0.9);*/
   position: absolute;
+  letter-spacing: 0.1px;
   /*text-transform: uppercase;*/
 }
 
@@ -228,10 +229,67 @@ text.text-3 {
   font-family: 'Roboto Slab',"HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 16px;
-  color: #000;
+  color: #fff;
   /*background-color: rgba(40, 40, 40, 0.9);*/
   position: absolute;
+  letter-spacing: 0.1px;
   /*text-transform: uppercase;*/
+}
+
+strong.description {
+  font-family: 'Roboto Slab', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+p.descriptionBody {
+  font-family: 'Roboto Slab',"HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #fff;
+  /*background-color: rgba(40, 40, 40, 0.9);*/
+  /*position: absolute;*/
+  text-align: left;
+  margin-left: 0px;
+  letter-spacing: 0.1px;
+  line-height: 170%;
+  /*text-transform: uppercase;*/
+}
+
+.example {
+  margin-top: 60px;
+}
+
+.other {
+  font-family: 'Roboto Slab',"HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  text-align: right;
+  margin-right: 30px;
+  margin-top: 30px;
+}
+
+.credits {
+  font-family: 'Roboto Slab',"HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  text-align: left;
+  margin-left: 0px;
+  margin-top: 30px;
+}
+
+a {
+  color: #92a0ac;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #82a0ac;
+  text-decoration: none;
+}
+
+img {
+  margin-left: -60px;
 }
 
 /*# sourceMappingURL=d3.parsets.css.map */
