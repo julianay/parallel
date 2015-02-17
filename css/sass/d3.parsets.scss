@@ -1,5 +1,5 @@
-$bkgColor: #333;
-$textColor: #bbb;
+$bkgColor: #fff;
+$textColor: #000;
 $textColorCategory: #fff; 
 
 /*
@@ -16,7 +16,7 @@ $category:
 #b2aa9b, // grey
 #eebb2c; // yellow
 */
-
+/*
 $category0: #784184;
 $category: 
 #be5021, // orange
@@ -29,29 +29,44 @@ $category:
 #78b3b2, // light blue
 #b2aa9b, // grey
 #eebb2c; // yellow
+*/
 
+$category0: #d3a52e;
+$category: 
+#7c654f, // orange
+#92a0ac, // red
+#485f76, // blue
+#ea9290, // pink
+#784184, // purple
+#841a19, // burgundy
+#a0c83c, // green
+#78b3b2, // light blue
+#b2aa9b, // grey
+#eebb2c; // yellow
+
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:300,700);
 
  @mixin font-style{
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: 'Roboto Slab', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
  }
 
   @mixin font-style-light{
-  font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 200;
+  font-family: 'Roboto Slab',"HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
  }
 
   @mixin font-style-bar{
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: 'Roboto Slab',"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
-  letter-spacing: 0.1px;
+  letter-spacing: -0.1px;
   fill: $textColorCategory;
-  font-size:14px;
+  font-size:13px;
  }
 
 body {
   @include font-style;
-  letter-spacing: 1px;
+  letter-spacing: 0px;
   font-size: 10px;
   color: $textColor;
   width: 960px;
@@ -62,10 +77,11 @@ body {
 }
 
 h1 {
-  @include font-style-light;
-  letter-spacing: 0.4px;
+  @include font-style;
+  letter-spacing: -0.1px;
   font-size: 30px;
   margin-top: 40px;
+  margin-left: -320px;
   color: $textColor;
   text-transform: uppercase;
 }
@@ -73,14 +89,6 @@ h1 {
 .name{
   fill: $textColor;
   text-transform: uppercase;
-}
-
-p.meta, p.footer {
-  font-size: 10px;
-  color: $textColor;
-}
-p.meta {
-  text-align: center;
 }
 
 .dimension line {
@@ -140,7 +148,7 @@ text.text-0 {
 
 .ribbon path {
   stroke-opacity: 0;
-  fill-opacity: .1;
+  fill-opacity: .2;
 }
 
 .ribbon path.active {
@@ -163,13 +171,13 @@ $bars: 9;
 
 .tooltip {
   @include font-style;
-  font-size: 11px;
+  font-size: 12px;
   color:$textColor;
-  background-color: rgba(40, 40, 40, 0.9);
+  background-color: rgba(240, 240, 240, 0.9);
   position: absolute;
   padding: 10px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: -0.1px;
 }
 
 .description {
@@ -178,6 +186,7 @@ $bars: 9;
   color:$textColor;
   /*background-color: rgba(40, 40, 40, 0.9);*/
   position: absolute;
+  /*text-transform: uppercase;*/
 }
 
 .description2 {
@@ -186,6 +195,7 @@ $bars: 9;
   color:$textColor;
   /*background-color: rgba(40, 40, 40, 0.9);*/
   position: absolute;
+  /*text-transform: uppercase;*/
 }
 
 /*# sourceMappingURL=d3.parsets.css.map */
