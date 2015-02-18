@@ -75,7 +75,7 @@ line.category-0 {
 }
 
 line.category-1 {
-  stroke: #c05015;
+  stroke: #bd5e2a;
 }
 
 line.category-2 {
@@ -141,7 +141,7 @@ text.text-3 {
 
 .ribbon path {
   stroke-opacity: 0;
-  fill-opacity: .1;
+  fill-opacity: .2;
 }
 
 .ribbon path.active {
@@ -158,8 +158,8 @@ text.text-3 {
 }
 
 .category-1 {
-  fill: #c05015;
-  stroke: #c05015;
+  fill: #bd5e2a;
+  stroke: #bd5e2a;
 }
 
 .category-2 {

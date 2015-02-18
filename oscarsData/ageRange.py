@@ -2,19 +2,19 @@ import csv
 import pandas
 
 fout = open('age', 'wt')
-with open('oscars2.csv', 'rt') as csvfile:
+with open('oscars6.csv', 'rt') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        if int(row['age']) < 25:
-            print("8-24", file=fout)   
-        elif int(row['age']) >= 25 and int(row['age']) < 40:
-            print("25-39", file=fout)
-        elif int(row['age']) >= 40 and int(row['age']) < 55:
-            print("40-54", file=fout)  
-        elif int(row['age']) >= 55 and int(row['age']) < 70:
-            print("55-69", file=fout)
-        elif int(row['age']) >= 70:
-            print("70-87", file=fout)
+        if int(row['age0']) < 25:
+            print("24 or younger", file=fout)   
+        elif int(row['age0']) >= 25 and int(row['age0']) < 40:
+            print("25 to 39", file=fout)
+        elif int(row['age0']) >= 40 and int(row['age0']) < 55:
+            print("40 to 54", file=fout)  
+        elif int(row['age0']) >= 55 and int(row['age0']) < 70:
+            print("55 to 69", file=fout)
+        elif int(row['age0']) >= 70:
+            print("70 or older", file=fout)
         else:
             print("-----", file=fout)
                             
