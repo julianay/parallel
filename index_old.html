@@ -17,7 +17,11 @@
   <script src="d3.parsets.js"></script>
   <script src="highlight.min.js"></script>
 </head>
-<!-- Google Analytics -->
+	<body>
+  <h1>What is the Most Common Age to Win an Oscar?</h1>
+  <div id="vis"><noscript><img src="image2.png"></noscript></div>
+
+  <!-- Google Analytics -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -26,10 +30,24 @@
 
   ga('create', 'UA-59873148-1', 'auto');
   ga('send', 'pageview');
+
 </script>
 
-	<body>
-  <h1>What is the Most Common Age to Win an Oscar?</h1>
+  <script>
+  var padding_width = 200;
+  var padding_height = 10;
+  var chart = d3.parsets()
+    .dimensions(["category", "award", "age"]);
+
+  var vis = d3.select("#vis").append("svg")
+    .attr("width", (chart.width() + padding_width))
+    .attr("height", (chart.height() + padding_height));
+
+  d3.csv("oscars7.csv", function(error, csv) {vis.datum(csv).call(chart);});
+  </script>
+  
+   <div class="credits"><a href="https://twitter.com/bigpixel27" class="twitter-follow-button" data-show-count="false">Follow @bigpixel27</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><p>Designed and developed by <a href="https://twitter.com/bigpixel27" target="_blank">Juliana Yamashita</a>, based on D3 Parallel Sets by <a href="http://www.jasondavies.com/parallel-sets/" target="_blank">Jason Davies</a>. Inspiration and data from <a href="http://www.overthinkingit.com/2013/02/19/oscar-winners-age-chart/" target="_blank">overthinkingit.com</a>.</p>
+   </div>
 
    <div class="example">
      <h2>For Best Actress, between ages 25 to 39</h2>
@@ -52,23 +70,6 @@
     </p>
     <img src="img/image5.png" alt="portfolio image">
   </div>
-
-   <div class="credits"><a href="https://twitter.com/bigpixel27" class="twitter-follow-button" data-show-count="false">Follow @bigpixel27</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><p>Designed and developed by <a href="https://twitter.com/bigpixel27" target="_blank">Juliana Yamashita</a>, based on D3 Parallel Sets by <a href="http://www.jasondavies.com/parallel-sets/" target="_blank">Jason Davies</a>. Inspiration and data from <a href="http://www.overthinkingit.com/2013/02/19/oscar-winners-age-chart/" target="_blank">overthinkingit.com</a>.</p>
-   </div>
-<div id="vis"><noscript><img src="image2.png"></noscript></div>
-   <script>
-  var padding_width = 200;
-  var padding_height = 10;
-  var chart = d3.parsets()
-    .dimensions(["category", "award", "age"]);
-
-  var vis = d3.select("#vis").append("svg")
-    .attr("width", (chart.width() + padding_width))
-    .attr("height", (chart.height() + padding_height));
-
-  d3.csv("oscars7.csv", function(error, csv) {vis.datum(csv).call(chart);});
-  </script>
-  
 
 </body>
 </html>

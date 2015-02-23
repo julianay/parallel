@@ -593,7 +593,7 @@ var topCategories = /^(Best Actress|Best Actor|Best Supporting Actress|Best Supp
         .attr("class", "description")
         .style("left", 0 + "px")
         .style("top", descY + "px")
-        .html("<p>Click on ribbons to compare age ranges and awards:</p>");
+        .html("<p>Click on the ribbons to compare age ranges and awards:</p>");
 
     var description2 = body.append("div")
     //.style("display", "none")
